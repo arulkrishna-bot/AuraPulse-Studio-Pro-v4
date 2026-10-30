@@ -1090,7 +1090,7 @@
             border-left: 0;
             background: color-mix(in srgb, var(--bg-base) 88%, #ffffff 12%);
             box-shadow: 0 22px 34px -12px rgba(0,0,0,.50), 0 8px 14px -6px rgba(0,0,0,.28), -6px -6px 14px var(--shadow-light);
-            transform: translateX(-3px) translateZ(0) scale(1.035) rotate(-1.2deg);
+            transform: translateZ(0) scale(1.03);
             opacity: 1;
         }
         #songsListDeck .song-tile-row.active .song-tile-thumb {
@@ -2809,7 +2809,7 @@
             z-index: 8;
             background: color-mix(in srgb, var(--bg-base) 86%, #ffffff 14%);
             box-shadow: 0 20px 32px -12px rgba(0,0,0,.5), 0 8px 14px -6px rgba(0,0,0,.28), -6px -6px 14px var(--shadow-light);
-            transform: translateX(-3px) scale(1.045) rotate(-1.2deg);
+            transform: scale(1.045);
             opacity: 1;
         }
         #songsListDeck .song-tile-row.tp .song-tile-thumb { transform: scale(1.22); box-shadow: 0 8px 16px rgba(0,0,0,.38); }
@@ -9291,7 +9291,7 @@
            9. ANDROID NATIVE HOOKS  (lock-screen controls + player on the locked screen)
            These only act inside the Android app that includes AuraNative.kt; in a browser they do nothing.
            ===================================================================== */
-        let lockAuto = lsGet('aura_lock_auto', '1') !== '0', lockAutoOpen = false, lockWatch = null;
+        let lockAuto = lsGet('aura_lock_auto', '1') !== '0', lockAutoOpen = false;
         const artCache = new Map();
         async function artB64(s) {
             const key = s.id + ':' + s.cover; if (artCache.has(key)) return artCache.get(key);
@@ -9326,21 +9326,34 @@
                 else if (a.indexOf('seek:') === 0) audioElement.currentTime = Number(a.slice(5)) / 1000;
             } catch (_) {}
         };
-        function lockCheck() {
-            if (!nativeHas('isLocked')) return;
-            let locked = false; try { locked = !!window.Android.isLocked(); } catch (_) {}
-            if (locked && lockAuto && state.isPlaying && !document.hidden && !lockAutoOpen) { lockAutoOpen = true; auraLockOpen(); startLockWatch(); }
-            else if (!locked && lockAutoOpen) { lockAutoOpen = false; stopLockWatch(); auraLockCloseRaw(); }
-        }
+        /* The phone tells us when the screen goes off / on / is unlocked, so the player opens on the lock screen
+           only after a real lock and closes the moment the phone is unlocked (no flicker). */
         const auraLockCloseRaw = window.auraLockClose;
+        let screenOffPlaying = false;
         window.auraLockClose = function () {
-            if (lockAutoOpen && nativeHas('requestUnlock') && nativeHas('isLocked') && window.Android.isLocked()) { try { window.Android.requestUnlock(); } catch (_) {} return; }
-            lockAutoOpen = false; stopLockWatch(); return auraLockCloseRaw.apply(this, arguments);
+            if (lockAutoOpen && nativeHas('requestUnlock') && nativeHas('isLocked')) {
+                let locked = false; try { locked = !!window.Android.isLocked(); } catch (_) {}
+                if (locked) { try { window.Android.requestUnlock(); } catch (_) {} return; }
+            }
+            lockAutoOpen = false; return auraLockCloseRaw.apply(this, arguments);
         };
-        function startLockWatch() { stopLockWatch(); lockWatch = setInterval(lockCheck, 600); }
-        function stopLockWatch() { clearInterval(lockWatch); lockWatch = null; }
-        document.addEventListener('visibilitychange', () => { setTimeout(lockCheck, 200); });
-        window.addEventListener('focus', () => setTimeout(lockCheck, 200));
+        window.auraNativeScreen = function (ev) {
+            try {
+                if (ev === 'off') { screenOffPlaying = !!state.isPlaying; }
+                else if (ev === 'on') {
+                    if ((screenOffPlaying || state.isPlaying) && lockAuto && nativeHas('isLocked') && !lockAutoOpen) {
+                        setTimeout(() => {
+                            let locked = false; try { locked = !!window.Android.isLocked(); } catch (_) {}
+                            if (locked && !lockAutoOpen) { lockAutoOpen = true; auraLockOpen(); }
+                        }, 250);
+                    }
+                } else if (ev === 'present') {
+                    screenOffPlaying = false;
+                    if (lockAutoOpen) { lockAutoOpen = false; auraLockCloseRaw.call(window); }
+                }
+            } catch (_) {}
+        };
+        window.auraOpenAppPermissions = function () { try { window.Android.openAppSettings(); } catch (_) { showToast('Open: Phone Settings → Apps → AuraPulse → Permissions'); } };
         window.auraSetLockAuto = on => { lockAuto = !!on; lsSet('aura_lock_auto', lockAuto ? '1' : '0'); if (nativeHas('setShowOnLock')) { try { window.Android.setShowOnLock(lockAuto); } catch (_) {} } };
         if (nativeHas('setShowOnLock')) { try { window.Android.setShowOnLock(lockAuto); } catch (_) {} }
 
@@ -9353,7 +9366,8 @@
                     if (id === 'viewTools' || id === 'viewToolPage') $('navItemSettings')?.classList.add('active');
                     if (id === 'viewTools') {
                         $('chkGestures').checked = gestures; $('chkShake').checked = shake; $('chkLockAuto').checked = lockAuto;
-                        const sub = $('lockAutoSub'); if (sub) sub.textContent = nativeHas('isLocked') ? 'Shows this player when the phone is locked while music plays.' : 'Needs the Android app update (AuraNative.kt). In the APK it shows this player on the lock screen.';
+                        const sub = $('lockAutoSub'); if (sub) sub.textContent = nativeHas('isLocked') ? 'Shows this player on the lock screen while music plays. On Xiaomi / Redmi / Poco phones also turn ON “Show on Lock screen” in the app permissions.' : 'Works in the Android app only.';
+                        if (nativeHas('openAppSettings') && sub && !$('lockPermBtn')) { const b = document.createElement('button'); b.type = 'button'; b.id = 'lockPermBtn'; b.className = 'aura-mini-btn'; b.style.marginTop = '8px'; b.textContent = 'Open app permissions'; b.onclick = () => auraOpenAppPermissions(); sub.parentNode.appendChild(b); }
                         alarmFill(); abRender(); refreshIcons($('viewTools'));
                     }
                 } catch (e) { console.warn(e); }
