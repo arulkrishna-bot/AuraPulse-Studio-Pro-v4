@@ -1090,7 +1090,7 @@
             border-left: 0;
             background: color-mix(in srgb, var(--bg-base) 88%, #ffffff 12%);
             box-shadow: 0 22px 34px -12px rgba(0,0,0,.50), 0 8px 14px -6px rgba(0,0,0,.28), -6px -6px 14px var(--shadow-light);
-            transform: translateX(-3px) translateZ(0) scale(1.035) rotate(-1.2deg);
+            transform: translateZ(0) scale(1.03);
             opacity: 1;
         }
         #songsListDeck .song-tile-row.active .song-tile-thumb {
@@ -2721,32 +2721,37 @@
         .songs-scope-chip .scope-kind { color: var(--accent-coral); margin-right: 6px; font-size: 10px; text-transform: uppercase; letter-spacing: .6px; }
     
         /* ===== WELCOME SCREEN (first launch) ===== */
-        .aura-welcome { position: absolute; inset: 0; z-index: 100050; display: flex; align-items: center; justify-content: center; padding: 18px;
-            background: linear-gradient(135deg, #ffb3c1 0%, #ffc4b0 55%, #ffd5b0 100%); transition: opacity .5s ease, transform .5s ease; user-select: none; }
+        .aura-welcome { position: absolute; inset: 0; z-index: 100050; display: flex; align-items: center; justify-content: center; padding: 0;
+            background: var(--bg-base); color: var(--text-heading); transition: opacity .5s ease, transform .5s ease; user-select: none; overflow: hidden; }
         .aura-welcome.hide { display: none; }
         .aura-welcome.leaving { opacity: 0; transform: scale(1.04); pointer-events: none; }
-        .aw-card { width: 100%; height: 100%; max-height: 760px; justify-content: center; background: #eef1f6; border-radius: 34px; padding: 20px 22px 22px; display: flex; flex-direction: column; align-items: center;
-            box-shadow: 0 30px 60px -20px rgba(150,60,70,.45), 0 8px 18px rgba(150,60,70,.18); overflow: hidden; }
-        .aw-logo { width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-            background: radial-gradient(circle at 35% 30%, #ff8272, #ee2f1f); box-shadow: 0 0 0 7px rgba(255,90,80,.14), 0 10px 26px rgba(240,60,40,.45); }
-        .aw-art { flex: 0 1 auto; min-height: 0; width: 100%; max-height: 300px; margin: 8px 0 4px; }
-        .aw-disc { transform-box: fill-box; transform-origin: center; animation: awSpin 14s linear infinite; }
-        .aw-note { animation: awFloat 3.4s ease-in-out infinite; }
-        .aw-note.n1 { transform: translate(40px, 70px); } .aw-note.n2 { transform: translate(262px, 62px); animation-delay: -1.1s; } .aw-note.n3 { transform: translate(250px, 178px); animation-delay: -2s; }
-        @keyframes awSpin { to { transform: rotate(360deg); } }
-        @keyframes awFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -8px; } }
-        .aw-title { margin: 0; text-align: center; font-style: italic; font-weight: 600; font-size: clamp(28px, 8.6vw, 38px); line-height: 1.12; color: #14213d; letter-spacing: -.3px; }
-        .aw-title span { display: block; }
-        .aw-title .g { background: linear-gradient(90deg, #f43f6e, #fb923c); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; padding-right: 4px; }
-        .aw-tag { margin: 8px 0 14px; font-style: italic; font-weight: 600; font-size: 14px; letter-spacing: 1px; color: #3b4560; }
-        .aw-feats { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; margin-bottom: 16px; }
-        .aw-f { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; font-size: 11.5px; font-weight: 600; line-height: 1.25; color: #2a3550; }
-        .aw-f + .aw-f { border-left: 1.5px solid #c9cfdc; }
-        .aw-go { width: 100%; height: 54px; border: 0; border-radius: 28px; flex-shrink: 0; cursor: pointer; font: inherit; font-weight: 800; font-size: 16px; letter-spacing: .3px; color: #fff;
-            background: linear-gradient(90deg, #f43f6e, #fdab3d); box-shadow: 0 16px 26px -10px rgba(244,63,110,.65), inset 0 1px 0 rgba(255,255,255,.4); transition: transform .12s ease; }
+        .aw-card { width: 100%; height: 100%; max-width: 460px; padding: calc(env(safe-area-inset-top,0px) + 26px) 26px calc(env(safe-area-inset-bottom,0px) + 24px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; position: relative; }
+        .aw-brand { font-size: 13px; font-weight: 800; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px; }
+        .aw-hero { position: relative; width: min(66vw, 270px); aspect-ratio: 1; margin: 6px 0 10px; flex-shrink: 1; }
+        .aw-halo { position: absolute; inset: 0; border-radius: 50%; background: var(--bg-base); box-shadow: 16px 16px 34px var(--shadow-dark), -16px -16px 34px var(--shadow-light); }
+        .aw-ring { position: absolute; inset: 7%; width: 86%; height: 86%; animation: awSpin 18s linear infinite; }
+        .aw-pad { position: absolute; inset: 22%; border-radius: 50%; display: grid; place-items: center; background: var(--bg-base); box-shadow: inset 8px 8px 16px var(--shadow-dark), inset -8px -8px 16px var(--shadow-light); }
+        .aw-pad svg { width: 52%; height: 52%; color: var(--accent-coral); filter: drop-shadow(0 4px 6px color-mix(in srgb, var(--accent-coral) 35%, transparent)); animation: awPulse 2.4s ease-in-out infinite; }
+        .aw-bars { position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%); display: flex; gap: 4px; align-items: flex-end; height: 22px; }
+        .aw-bars i { width: 4px; border-radius: 3px; background: var(--accent-coral); height: 30%; animation: alEq 1s ease-in-out infinite; } .aw-bars i:nth-child(2){animation-delay:-.2s}.aw-bars i:nth-child(3){animation-delay:-.4s}.aw-bars i:nth-child(4){animation-delay:-.6s}.aw-bars i:nth-child(5){animation-delay:-.8s}
+        .aw-title { margin: 8px 0 0; text-align: center; font-weight: 800; font-size: clamp(27px, 8vw, 36px); line-height: 1.12; letter-spacing: -.3px; color: var(--text-heading); }
+        .aw-title span { display: block; } .aw-title .g { color: var(--accent-coral); }
+        .aw-tag { margin: 6px 0 12px; font-weight: 700; font-size: 13px; letter-spacing: 1.5px; color: var(--text-dim); text-align: center; }
+        .aw-mini { width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 22px; background: var(--bg-base); box-shadow: 8px 8px 18px var(--shadow-dark), -8px -8px 18px var(--shadow-light); margin-bottom: 14px; }
+        .aw-mini .cov { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, var(--accent-coral), color-mix(in srgb, var(--accent-coral) 55%, #7b5cff)); flex: none; }
+        .aw-mini .cov svg { width: 20px; height: 20px; }
+        .aw-mini .tx { flex: 1; min-width: 0; font-size: 13px; font-weight: 800; } .aw-mini .tx small { display: block; font-size: 11px; font-weight: 600; opacity: .65; margin-top: 1px; }
+        .aw-mini .pg { height: 4px; border-radius: 4px; margin-top: 6px; background: var(--bg-base); box-shadow: inset 1px 1px 3px var(--shadow-dark), inset -1px -1px 3px var(--shadow-light); overflow: hidden; } .aw-mini .pg i { display: block; height: 100%; width: 38%; background: var(--accent-coral); animation: awProg 6s ease-in-out infinite alternate; }
+        .aw-mini .pp { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-coral); color: #fff; flex: none; box-shadow: 0 8px 14px color-mix(in srgb, var(--accent-coral) 40%, transparent); } .aw-mini .pp svg { width: 18px; height: 18px; }
+        .aw-feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; margin-bottom: 16px; }
+        .aw-f { display: flex; flex-direction: column; align-items: center; gap: 7px; text-align: center; font-size: 11.5px; font-weight: 700; line-height: 1.25; color: var(--text-body); }
+        .aw-f b { width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; background: var(--bg-base); color: var(--accent-coral); box-shadow: 5px 5px 11px var(--shadow-dark), -5px -5px 11px var(--shadow-light); } .aw-f svg { width: 22px; height: 22px; }
+        .aw-go { width: 100%; height: 54px; border: 0; border-radius: 28px; flex-shrink: 0; cursor: pointer; font: inherit; font-weight: 800; font-size: 16px; letter-spacing: .5px; color: #fff; background: var(--accent-coral);
+            box-shadow: 0 16px 26px -10px color-mix(in srgb, var(--accent-coral) 70%, transparent), inset 0 1px 0 rgba(255,255,255,.35); transition: transform .12s ease; }
         .aw-go:active { transform: scale(.97); }
-        @media (max-height: 640px) { .aw-art { max-height: 170px; } .aw-feats { margin-bottom: 10px; } .aw-tag { margin: 4px 0 8px; } }
-        @media (prefers-reduced-motion: reduce) { .aw-disc, .aw-note { animation: none; } }
+        @keyframes awSpin { to { transform: rotate(360deg); } } @keyframes awPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.07); } } @keyframes awProg { to { width: 82%; } }
+        @media (max-height: 700px) { .aw-hero { width: min(48vw, 190px); } .aw-feats { margin-bottom: 8px; } .aw-mini { margin-bottom: 8px; } }
+        @media (prefers-reduced-motion: reduce) { .aw-ring, .aw-pad svg, .aw-bars i, .aw-mini .pg i { animation: none; } }
 
         /* ===== LOCK SCREEN PLAYER (inherits the active theme) ===== */
         .aura-lock { position: absolute; inset: 0; z-index: 99990; display: none; flex-direction: column; overflow: hidden; touch-action: none;
@@ -2783,6 +2788,162 @@
         @media (max-height: 640px) { .al-time { font-size: 34px; } .al-info { margin-top: 12px; } .al-title { font-size: 19px; } }
         @media (prefers-reduced-motion: reduce) { .al-unlock, .al-disc img { animation: none !important; } }
 
+        /* ===== LOCK SCREEN v6: 10 designs (one per theme) ===== */
+.aura-lock { padding: 0 !important; }
+.aura-lock .al-unlock { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; margin: 0 auto; align-items: center; padding: 4px 0 calc(env(safe-area-inset-bottom,0px) + 10px); color: var(--fg, #fff); opacity: .8; }
+.alx { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; padding: calc(env(safe-area-inset-top,0px) + 14px) 20px 52px; color: var(--fg, #fff); font-family: inherit; overflow: hidden; }
+.alx * { box-sizing: border-box; }
+.alx button { font: inherit; color: inherit; cursor: pointer; border: 0; padding: 0; background: none; -webkit-tap-highlight-color: transparent; }
+.alb { display: grid; place-items: center; flex: none; transition: transform .1s ease; }
+.alb:active { transform: scale(.92); }
+.alb svg { width: 52%; height: 52%; }
+.alb.on { color: var(--hi, currentColor); }
+.alx-clock { text-align: center; line-height: 1.1; flex: none; }
+.alx-clock b { display: block; font-size: 38px; font-weight: 300; letter-spacing: 1px; }
+.alx-clock span { font-size: 12px; font-weight: 600; opacity: .75; }
+.alx .ttl { font-weight: 800; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; max-width: 100%; }
+.alx .sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.alx .cov { width: 100%; height: 100%; object-fit: cover; display: block; }
+.alx .row { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.alx svg .trk { stroke: var(--trk, rgba(255,255,255,.28)); stroke-width: 3; stroke-linecap: round; }
+.alx svg .prg { stroke: var(--prg, #fff); stroke-width: 3.4; stroke-linecap: round; }
+.alx svg .dot { fill: var(--dotc, #fff); stroke: var(--dots, rgba(0,0,0,.2)); stroke-width: 2; }
+.alx .lin { position: relative; width: 100%; height: 26px; display: flex; align-items: center; cursor: pointer; }
+.alx .lin i { display: block; position: absolute; left: 0; right: 0; height: 5px; border-radius: 5px; background: var(--trk, rgba(255,255,255,.28)); }
+.alx .lin i b { display: block; height: 100%; width: calc(var(--p, 0) * 100%); border-radius: 5px; background: var(--prg, #fff); }
+.alx .lin u { position: absolute; left: calc(var(--p, 0) * 100%); width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--dotc, #fff); box-shadow: 0 2px 8px rgba(0,0,0,.35); }
+.alx .times { display: flex; justify-content: space-between; width: 100%; font-size: 11px; font-weight: 700; opacity: .75; font-family: var(--font-mono, monospace); }
+.alx .spin { animation: alSpin 26s linear infinite; animation-play-state: paused; }
+.playing .alx .spin { animation-play-state: running; }
+.alx .eq { display: inline-flex; align-items: flex-end; gap: 3px; height: 18px; }
+.alx .eq i { width: 3px; border-radius: 2px; background: currentColor; height: 30%; animation: alEq 1s ease-in-out infinite; animation-play-state: paused; }
+.alx .eq i:nth-child(2) { animation-delay: -.25s; } .alx .eq i:nth-child(3) { animation-delay: -.5s; } .alx .eq i:nth-child(4) { animation-delay: -.75s; }
+.playing .alx .eq i { animation-play-state: running; }
+@keyframes alEq { 0%,100% { height: 25%; } 50% { height: 100%; } }
+@media (max-height: 640px) { .alx-clock b { font-size: 28px; } }
+
+/* D1 Riha (terracotta) */
+#auraLock[data-d="1"] { background: linear-gradient(180deg, #c8725b, #9b4538 75%); --fg: #fff; --trk: rgba(255,255,255,.35); --prg: #fff; --hi: #ffe2d2; }
+.d1-stage { position: relative; width: 78%; max-width: 300px; flex: 1; min-height: 0; margin: 8px 0 4px; }
+.d1-tube { position: absolute; left: 50%; top: 0; bottom: 18%; width: 52%; transform: translateX(-50%); border-radius: 0 0 999px 999px; background: linear-gradient(180deg, rgba(255,226,210,.12), #efb69c); box-shadow: 0 18px 30px -14px rgba(60,10,0,.5); }
+.d1-disc { position: absolute; left: 50%; bottom: 22%; width: 44%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; overflow: hidden; box-shadow: 0 8px 18px rgba(60,10,0,.45); }
+.d1-disc em { position: absolute; inset: 40%; border-radius: 50%; background: #efb69c; box-shadow: 0 0 0 3px rgba(255,255,255,.5); }
+.d1-ring { position: absolute; left: 0; bottom: 0; width: 100%; height: 34%; overflow: visible; } .d1-ring .dot { r: 5; }
+.d1-info { text-align: center; margin-top: 4px; } .d1-info .ttl { font-size: 20px; } .d1-info .sub { opacity: .75; font-weight: 600; font-size: 13px; margin-top: 3px; }
+.d1-cur { font-size: 12px; font-weight: 700; margin-top: 6px; }
+.d1-ctl { margin: 12px 0 10px; gap: 10px; } .d1-ctl .alb { width: 44px; height: 44px; } .d1-ctl .alb.big { width: 62px; height: 62px; } .d1-ctl .alb.big svg { width: 60%; height: 60%; }
+.d1-card { width: 100%; border-radius: 20px 20px 0 0; padding: 10px 16px; background: #efb69c; color: #5b2a20; font-size: 12px; font-weight: 700; margin-top: auto; }
+.d1-card small { display: block; font-size: 10px; opacity: .7; letter-spacing: .5px; }
+
+/* D2 Fabula (light neumorphic) */
+#auraLock[data-d="2"] { background: #e9edf4; --fg: #5f6b85; --trk: #d8deea; --prg: #4f7be8; --dotc: #fff; --hi: #e53935; }
+.d2-head { width: 100%; display: flex; align-items: center; justify-content: space-between; margin-top: 4px; font-weight: 700; font-size: 17px; }
+.d2-head .alb { width: 44px; height: 44px; border-radius: 50%; background: #eef1f7; box-shadow: 6px 6px 14px #cfd5e2, -6px -6px 14px #fff; }
+.d2-head small { opacity: .8; }
+.d2-mid { position: relative; width: 100%; display: flex; justify-content: center; align-items: center; flex: 1; margin: 8px 0; }
+.d2-cover { width: 56%; aspect-ratio: 1 / 1.1; border-radius: 34px; overflow: hidden; border: 4px solid #fff; box-shadow: 10px 12px 26px #c8cedc, -8px -8px 20px #fff; }
+.d2-side { position: absolute; right: 2%; top: 8%; display: flex; flex-direction: column; gap: 18px; opacity: .65; }
+.d2-side svg { width: 20px; height: 20px; }
+.d2-info { text-align: center; } .d2-info .sub { font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .8; } .d2-info .ttl { font-size: 22px; color: #6a7488; margin-top: 4px; }
+.d2-arc { width: 100%; height: 70px; margin-top: 4px; overflow: visible; } .d2-arc .trk { stroke-width: 5; } .d2-arc .prg { stroke-width: 5; } .d2-arc .dot { stroke: #fff; stroke-width: 5; fill: #3d63c9; }
+.d2-ctl { margin-top: 6px; gap: 20px; } .d2-ctl .alb { width: 64px; height: 64px; border-radius: 50%; background: #eef1f7; color: #4f7be8; box-shadow: 8px 8px 18px #ccd3e1, -8px -8px 18px #fff; }
+.d2-ctl .alb.big { width: 78px; height: 78px; background: linear-gradient(145deg, #4b82ff, #2b55e0); color: #fff; box-shadow: 8px 10px 22px rgba(60,100,230,.45); }
+
+/* D3 Low Life (dark neumorphic) */
+#auraLock[data-d="3"] { background: #1c1e23; --fg: #b9bcc4; --trk: #0f1013; --prg: linear-gradient(90deg,#ff7a1a,#ffb02e); --dotc: #e6a23a; }
+.d3-card { position: relative; flex: 1; min-height: 0; width: 100%; margin: 8px 0 6px; border-radius: 38px; background: #25282e; padding: 16px 18px; display: flex; flex-direction: column; align-items: center; box-shadow: 10px 10px 24px #121316, -6px -6px 18px #2c3037; }
+.d3-top { width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 11px; letter-spacing: 1.5px; font-weight: 800; opacity: .85; }
+.d3-top .alb { width: 38px; height: 38px; border-radius: 50%; background: #25282e; box-shadow: 4px 4px 10px #141518, -3px -3px 8px #30343b; color: #c4c7ce; }
+.d3-cov { width: 66%; max-width: 260px; aspect-ratio: 1; margin: auto; border-radius: 50%; overflow: hidden; flex: none; box-shadow: 0 0 0 10px #25282e, 0 0 0 11px #1b1d21, 14px 16px 30px #141518, -8px -8px 20px #30343b; }
+.d3-info { text-align: center; } .d3-info .ttl { font-size: 24px; color: #d2d5dc; font-weight: 700; } .d3-info .sub { font-size: 13px; opacity: .7; margin-top: 4px; }
+.d3-seek { width: 100%; margin-top: auto; } .d3-seek .lin i { background: #0f1013; box-shadow: inset 1px 1px 3px #000; } .d3-seek .lin i b { background: linear-gradient(90deg, #ff7a1a, #ffb02e); } .d3-seek .lin u { background: #d79b2c; }
+.d3-ctl { margin: 6px 0 4px; gap: 20px; } .d3-ctl .alb { width: 60px; height: 60px; border-radius: 50%; background: #25282e; color: #aeb1b9; box-shadow: 6px 6px 14px #141518, -4px -4px 12px #30343b; } .d3-ctl .alb.big { width: 74px; height: 74px; background: radial-gradient(circle at 35% 30%, #ff7a2a, #e8450f); color: #fff; box-shadow: 0 10px 24px rgba(255,90,20,.4); }
+
+/* D4 Music Space (purple blob) */
+#auraLock[data-d="4"] { background: #f3f3f7; --fg: #2d1a4f; --trk: #d7cfe8; --prg: #4a1f7a; --dotc: #4a1f7a; }
+.d4-blob { position: absolute; left: 0; right: 0; top: 52px; height: 36%; }
+.d4-blob svg { width: 100%; height: 100%; display: block; } 
+.d4-top { position: relative; z-index: 2; width: 100%; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 15px; letter-spacing: .5px; } 
+.d4-song { position: absolute; left: 0; right: 0; top: 52px; height: 36%; display: flex; align-items: center; gap: 16px; padding: 0 56px 0 22px; color: #fff; z-index: 2; }
+.d4-cov { width: 38%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; flex: none; border: 5px solid #1c0b38; box-shadow: 0 0 0 2px rgba(255,255,255,.3); }
+.d4-song > div:last-child { min-width: 0; flex: 1; } .d4-song .ttl { font-size: 17px; } .d4-song .sub { opacity: .75; font-size: 13px; margin-top: 4px; }
+.d4-song .row { justify-content: flex-start; gap: 6px; margin-top: 10px; } .d4-song .alb { width: 34px; height: 34px; color: #fff; }
+.d4-arc { position: absolute; left: 0; bottom: 0; width: 72%; height: 52%; overflow: visible; } .d4-arc .trk { stroke: #4a1f7a; stroke-width: 5; opacity: .25; } .d4-arc .prg { stroke-width: 6; } .d4-arc .dot { fill: #4a1f7a; stroke: #fff; stroke-width: 3; }
+.d4-bub { position: absolute; left: 0; bottom: 0; font-size: 11px; font-weight: 800; color: #fff; background: #4a1f7a; padding: 3px 7px; border-radius: 12px; z-index: 3; pointer-events: none; transform: translate(-50%, -22px); }
+.d4-ctl { position: absolute; right: 24px; bottom: 34px; z-index: 3; gap: 12px; } .d4-ctl .alb { width: 46px; height: 46px; color: #4a1f7a; } .d4-ctl .alb.big { width: 56px; height: 56px; border-radius: 50%; background: #4a1f7a; color: #fff; box-shadow: 0 10px 20px rgba(74,31,122,.4); }
+.d4-time { position: absolute; right: 24px; bottom: 112px; font-size: 12px; font-weight: 800; color: #4a1f7a; z-index: 3; } .d4-clock { position: absolute; left: 22px; bottom: 120px; z-index: 3; color: #4a1f7a; text-align: left; }
+.d4-clock b { display: block; font-size: 44px; font-weight: 300; line-height: 1; } .d4-clock span { font-size: 12px; font-weight: 700; opacity: .7; }
+
+/* D5 Eden (arch + gradient) */
+#auraLock[data-d="5"] { background: linear-gradient(160deg, #e4c0f5 0%, #9fb2f5 55%, #86a5f2 100%); --fg: #26244a; --trk: #d4daf6; --prg: #5b7ff0; --dotc: #fff; }
+.d5-card { position: relative; flex: 1; width: 100%; margin: 8px 0 6px; border-radius: 40px; background: #fbf8ff; padding: 14px 18px 14px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 20px 40px -16px rgba(60,50,150,.5); color: #26244a; }
+.d5-stage { position: relative; width: 94%; max-width: 330px; aspect-ratio: 1 / 1.02; flex: none; margin: auto; }
+.d5-arch { position: absolute; left: 20%; right: 20%; top: 0; bottom: 14%; border-radius: 14px 14px 999px 999px; overflow: hidden; box-shadow: 0 14px 26px -8px rgba(60,40,120,.55); border: 3px solid #fff; }
+.d5-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; } .d5-ring .trk { stroke: #c8d0f4; stroke-width: 2.4; } .d5-ring .prg { stroke-width: 2.6; } .d5-ring .dot { fill: #fff; stroke: #5b7ff0; stroke-width: 2.5; }
+.d5-info { text-align: center; margin-top: 2px; } .d5-info .sub { font-size: 14px; opacity: .75; } .d5-info .ttl { font-size: 20px; margin-top: 2px; }
+.d5-ctl { margin-top: auto; gap: 12px; width: 100%; justify-content: space-between; } .d5-ctl .alb { width: 46px; height: 46px; color: #3d3b64; border-radius: 14px; } .d5-ctl .alb.sq { background: #fff; box-shadow: 0 6px 14px rgba(90,80,170,.18); width: 54px; } .d5-ctl .alb.big { width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, #a46cf0, #5b7ff0); color: #fff; box-shadow: 0 12px 22px rgba(110,90,240,.45); }
+.d5-clock { color: #26244a; margin-top: 2px; }
+
+/* D6 Dance Monkey (pale blue neumorphic, rail + cropped disc) */
+#auraLock[data-d="6"] { background: #cfe3f3; --fg: #0f2a5e; --trk: rgba(120,150,190,.35); --prg: #d92b3a; --dotc: #d92b3a; }
+.d6 { align-items: flex-start; padding-left: 26px; }
+.d6-title { font-size: 30px; font-weight: 900; letter-spacing: .5px; text-transform: uppercase; line-height: 1.05; color: #0a1f55; max-width: 86%; margin-top: 4px; } .d6-sub { font-size: 14px; font-weight: 700; margin-top: 8px; color: #16316e; } .d6-sub2 { font-size: 12px; font-weight: 700; margin-top: 2px; color: #8aaed0; }
+.d6-rail { position: relative; z-index: 3; width: 58px; margin-top: 22px; padding: 12px 0; border-radius: 30px; background: #d6e8f7; box-shadow: 8px 8px 18px #b0c6d9, -8px -8px 18px #f2faff; display: flex; flex-direction: column; align-items: center; gap: 10px; color: #8aaed0; }
+.d6-rail .alb { width: 44px; height: 44px; } .d6-rail .alb.on { color: #d92b3a; } .d6-rail .alb.big { color: #5d7fb0; }
+.d6-disc { position: absolute; right: -96px; top: 26%; width: 310px; height: 310px; }
+.d6-disc .well { position: absolute; inset: 0; border-radius: 50%; background: #d3e6f6; box-shadow: inset 10px 10px 22px #b2c8dc, inset -10px -10px 22px #f4fbff, 0 0 0 10px rgba(255,255,255,.55); }
+.d6-disc .cd { position: absolute; inset: 14%; border-radius: 50%; overflow: hidden; box-shadow: 0 10px 24px rgba(10,30,70,.4); }
+.d6-disc svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; } .d6-disc .trk { stroke: rgba(255,255,255,.7); stroke-width: 4; } .d6-disc .prg { stroke-width: 4.5; }
+.d6-foot { position: absolute; left: 26px; right: 20px; bottom: 6px; text-align: left; font-size: 13px; color: #0f2a5e; z-index: 3; } .d6-foot b { font-weight: 800; } .d6-foot span { color: #98b4d1; }
+.d6-clock { position: absolute; right: 20px; top: calc(env(safe-area-inset-top,0px) + 16px); text-align: right; z-index: 3; color: #0f2a5e; } .d6-clock b { font-size: 26px; font-weight: 300; display: block; } .d6-clock span { font-size: 11px; font-weight: 700; opacity: .7; }
+.d6-times { position: absolute; left: 100px; bottom: 44px; font-size: 11px; font-weight: 800; color: #5d7fb0; z-index: 3; }
+
+/* D7 Zara (lavender, oval cover) */
+#auraLock[data-d="7"] { background: linear-gradient(160deg, #f9f3ff, #d9d2ff); --fg: #12163a; --trk: #d9d2f0; --prg: #19c46b; --dotc: #19c46b; }
+.d7-name { font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 38px; line-height: 1; text-align: left; width: 100%; margin-top: 6px; letter-spacing: -.5px; max-height: 2.1em; overflow: hidden; }
+.d7-chip { align-self: flex-end; margin-top: -6px; position: relative; z-index: 2; font-size: 12px; font-weight: 700; background: #fff; border: 1px solid #c9c4e6; padding: 5px 12px; border-radius: 16px; max-width: 60%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.d7-stage { position: relative; width: 78%; max-width: 300px; flex: 1; min-height: 0; margin-top: 8px; }
+.d7-oval { position: absolute; left: 6%; right: 6%; top: 0; bottom: 14%; border-radius: 999px; overflow: hidden; box-shadow: 0 16px 30px -10px rgba(90,60,150,.55); }
+.d7-oval .play { position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: #12163a; color: #fff; z-index: 2; }
+.d7-oval .tm { position: absolute; bottom: 16px; left: 0; right: 0; text-align: center; color: #fff; font-weight: 700; text-shadow: 0 1px 6px rgba(0,0,0,.6); font-size: 15px; }
+.d7-ring { position: absolute; left: 0; bottom: 0; width: 100%; height: 38%; overflow: visible; } .d7-ring .trk { stroke: #12163a; stroke-width: 2.4; } .d7-ring .prg { stroke-width: 3.2; } .d7-ring .dot { fill: #19c46b; stroke: #fff; stroke-width: 2; }
+.d7-ctl { margin: 10px 0 8px; gap: 10px; } .d7-ctl .alb { width: 52px; height: 52px; border-radius: 50%; background: #e3deff; color: #12163a; } .d7-ctl .alb.dk { background: #12163a; color: #fff; width: 56px; height: 56px; } .d7-ctl .alb.dk span { font-size: 13px; font-weight: 900; }
+.d7-clock { align-self: flex-end; text-align: right; position: absolute; right: 20px; top: calc(env(safe-area-inset-top,0px) + 16px); } .d7-clock b { font-size: 20px; font-weight: 600; display: block; } .d7-clock span { font-size: 10px; opacity: .6; }
+
+/* D8 Vinyl turntable (own) */
+#auraLock[data-d="8"] { background: linear-gradient(160deg, #d6f2f3, #a9dfe2); --fg: #08484d; --trk: rgba(8,72,77,.2); --prg: #00a6ad; --dotc: #00a6ad; }
+.d8-deck { position: relative; width: 100%; max-width: 340px; flex: 1; min-height: 0; margin: 8px 0; border-radius: 34px; background: #c9ecee; box-shadow: 12px 12px 26px #8dbdc1, -10px -10px 24px #f0ffff; display: flex; align-items: center; justify-content: center; }
+.d8-rec { width: 78%; aspect-ratio: 1; border-radius: 50%; background: repeating-radial-gradient(circle, #0c1214 0 2px, #1b2428 3px 4px); position: relative; box-shadow: 0 14px 30px rgba(0,30,35,.55); margin-right: 10%; margin-top: 12%; }
+.d8-rec .lbl { position: absolute; inset: 31%; border-radius: 50%; overflow: hidden; border: 3px solid #0c1214; } .d8-rec .hole { position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%; background: #c9ecee; z-index: 2; }
+.d8-rec .sheen { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 20deg, transparent 0 20%, rgba(255,255,255,.16) 25%, transparent 32% 70%, rgba(255,255,255,.12) 75%, transparent 82%); }
+.d8-arm { position: absolute; right: 7%; top: 4%; width: 34%; height: 62%; transform-origin: 70% 12%; transform: rotate(var(--ang, -12deg)); transition: transform .8s ease; pointer-events: none; }
+.d8-arm svg { width: 100%; height: 100%; overflow: visible; }
+.d8-info { text-align: center; } .d8-info .ttl { font-size: 21px; } .d8-info .sub { font-size: 13px; opacity: .75; font-weight: 700; margin-top: 3px; }
+.d8-seek { width: 100%; max-width: 340px; margin-top: 6px; }
+.d8-ctl { margin: 4px 0 6px; gap: 18px; } .d8-ctl .alb { width: 56px; height: 56px; border-radius: 50%; background: #c9ecee; color: #08484d; box-shadow: 6px 6px 14px #8dbdc1, -6px -6px 14px #f0ffff; } .d8-ctl .alb.big { width: 70px; height: 70px; background: linear-gradient(145deg, #12c3cb, #008f96); color: #fff; }
+
+/* D9 Aurora glass (own) */
+#auraLock[data-d="9"] { background: #0b2a1c; --fg: #eafff3; --trk: rgba(255,255,255,.25); --prg: #8bf5b9; --dotc: #fff; --hi: #8bf5b9; }
+.d9-bg { position: absolute; inset: -40px; background-size: cover; background-position: center; filter: blur(46px) saturate(1.5) brightness(.7); transform: scale(1.2); }
+.d9-bg + .d9-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,40,24,.15), rgba(6,40,24,.65)); }
+.d9 > :not(.d9-bg):not(.d9-shade) { position: relative; z-index: 2; }
+.d9-glass { width: 100%; flex: 1; min-height: 0; margin: 10px 0 8px; border-radius: 34px; padding: 18px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); display: flex; flex-direction: column; align-items: center; box-shadow: 0 20px 40px -16px rgba(0,0,0,.5); }
+.d9-cov { width: 76%; max-width: 270px; aspect-ratio: 1; border-radius: 28px; overflow: hidden; box-shadow: 0 18px 36px -10px rgba(0,0,0,.6); flex: none; margin: auto; }
+.d9-info { width: 100%; margin-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; } .d9-info > div { min-width: 0; } .d9-info .ttl { font-size: 21px; } .d9-info .sub { opacity: .8; font-weight: 600; font-size: 13px; margin-top: 3px; } .d9-info .eq { height: 22px; color: #8bf5b9; }
+.d9-seek { width: 100%; margin-top: auto; }
+.d9-ctl { margin-top: 4px; gap: 14px; } .d9-ctl .alb { width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3); } .d9-ctl .alb.big { width: 70px; height: 70px; background: #8bf5b9; color: #0b2a1c; border: 0; box-shadow: 0 12px 26px rgba(139,245,185,.4); }
+
+/* D10 Radial dial (own) */
+#auraLock[data-d="10"] { background: linear-gradient(160deg, #ffe9dd, #ffcfb8); --fg: #6a2f1d; --trk: rgba(106,47,29,.22); --prg: #c66b4b; --dotc: #c66b4b; --hi: #c66b4b; }
+.d10-dial { position: relative; width: 86%; max-width: 330px; aspect-ratio: 1; flex: none; margin: 10px 0 6px; border-radius: 50%; background: #ffe2d2; box-shadow: 12px 12px 26px #e3b49c, -10px -10px 24px #fff5ee; }
+.d10-dial svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.d10-tk line { stroke: rgba(106,47,29,.25); stroke-width: 2.2; stroke-linecap: round; } .d10-tk line.on { stroke: #c66b4b; stroke-width: 3.2; }
+.d10-dial .dot { fill: #c66b4b; stroke: #fff; stroke-width: 3; }
+.d10-cov { position: absolute; inset: 22%; border-radius: 50%; overflow: hidden; box-shadow: 0 12px 26px rgba(120,50,20,.4), 0 0 0 6px #ffe2d2; }
+.d10-tm { position: absolute; left: 0; right: 0; bottom: 16%; text-align: center; font-size: 12px; font-weight: 800; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.6); z-index: 2; pointer-events: none; }
+.d10-info { text-align: center; } .d10-info .ttl { font-size: 21px; } .d10-info .sub { opacity: .75; font-size: 13px; font-weight: 700; margin-top: 3px; }
+.d10-ctl { margin: 10px 0 8px; gap: 14px; } .d10-ctl .alb { width: 54px; height: 54px; border-radius: 50%; background: #ffe2d2; box-shadow: 6px 6px 14px #e3b49c, -6px -6px 14px #fff5ee; } .d10-ctl .alb.big { width: 70px; height: 70px; background: linear-gradient(145deg, #e58a68, #c25a39); color: #fff; }
+
         /* ===== QUEUE / BACKUP / SEARCH extras ===== */
         .aura-queue-actions { display: flex; gap: 8px; margin: 2px 0 10px; flex-wrap: wrap; }
         .aq-bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 16px; width: 20px; justify-content: center; padding-right: 4px; }
@@ -2809,7 +2970,7 @@
             z-index: 8;
             background: color-mix(in srgb, var(--bg-base) 86%, #ffffff 14%);
             box-shadow: 0 20px 32px -12px rgba(0,0,0,.5), 0 8px 14px -6px rgba(0,0,0,.28), -6px -6px 14px var(--shadow-light);
-            transform: translateX(-3px) scale(1.045) rotate(-1.2deg);
+            transform: scale(1.045);
             opacity: 1;
         }
         #songsListDeck .song-tile-row.tp .song-tile-thumb { transform: scale(1.22); box-shadow: 0 8px 16px rgba(0,0,0,.38); }
@@ -2839,7 +3000,51 @@
         .aura-mini-btn.danger { color: #ef4444; }
         .aura-dup-group { padding: 6px 4px 2px; margin-bottom: 8px; }
 
-    </style>
+    
+/* ===== ADD SONGS SCREEN ===== */
+.imp-wrap{padding:6px 16px 150px;display:flex;flex-direction:column;gap:14px}
+.imp-actions{display:grid;gap:12px}
+.imp-big{display:flex;align-items:center;gap:14px;padding:14px 16px;border:0;border-radius:18px;background:var(--bg-color);color:var(--text-main);text-align:left;box-shadow:6px 6px 14px var(--shadow-dark),-6px -6px 14px var(--shadow-light);font-family:inherit}
+.imp-big:active{box-shadow:inset 4px 4px 10px var(--shadow-dark),inset -4px -4px 10px var(--shadow-light)}
+.imp-big span{display:flex;flex-direction:column;gap:2px}.imp-big small{opacity:.6;font-size:11.5px}.imp-big b{font-size:14px}
+.imp-bar{display:flex;gap:8px;align-items:center}
+.imp-search{flex:1;min-width:0;padding:10px 14px;border:0;border-radius:14px;background:var(--bg-color);color:var(--text-main);box-shadow:inset 3px 3px 7px var(--shadow-dark),inset -3px -3px 7px var(--shadow-light);font-family:inherit;outline:none}
+.imp-chip{border:0;padding:9px 12px;border-radius:14px;background:var(--bg-color);color:var(--accent-color,#22d3ee);font-weight:700;font-size:12px;box-shadow:4px 4px 9px var(--shadow-dark),-4px -4px 9px var(--shadow-light)}
+.imp-count{font-size:12px;opacity:.7;padding:2px 4px}
+.imp-list{display:flex;flex-direction:column;gap:6px;max-height:52vh;overflow:auto}
+.imp-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:var(--bg-color);box-shadow:3px 3px 8px var(--shadow-dark),-3px -3px 8px var(--shadow-light)}
+.imp-row.on{box-shadow:inset 3px 3px 7px var(--shadow-dark),inset -3px -3px 7px var(--shadow-light)}
+.imp-chk{width:22px;height:22px;border-radius:7px;flex:none;display:grid;place-items:center;color:#fff;font-size:14px;background:var(--bg-color);box-shadow:inset 2px 2px 5px var(--shadow-dark),inset -2px -2px 5px var(--shadow-light)}
+.imp-row.on .imp-chk{background:var(--accent-color,#22d3ee)}
+.imp-t{min-width:0;flex:1}.imp-t b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.imp-t small{opacity:.6;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.imp-dup{font-size:10px;opacity:.55}
+.imp-foot{position:sticky;bottom:0;padding:10px 0 0;background:linear-gradient(transparent,var(--bg-color) 30%)}
+.imp-add{width:100%;border:0;padding:15px;border-radius:18px;font-weight:800;font-size:14px;color:#fff;background:var(--accent-color,#22d3ee);box-shadow:5px 5px 12px var(--shadow-dark)}
+.imp-add:disabled{opacity:.5}
+.imp-prog{height:8px;border-radius:6px;margin-bottom:10px;background:var(--bg-color);box-shadow:inset 2px 2px 4px var(--shadow-dark),inset -2px -2px 4px var(--shadow-light);overflow:hidden}.imp-prog i{display:block;height:100%;width:0;background:var(--accent-color,#22d3ee);transition:width .2s}
+.imp-hint{font-size:12px;opacity:.7;line-height:1.5;padding:0 4px}
+
+/* ===== LISTEN TOGETHER ===== */
+.tg-wrap{padding:6px 16px 150px;display:flex;flex-direction:column;gap:12px}
+.tg-note{font-size:12.5px;line-height:1.5;opacity:.8;padding:0 2px}
+.tg-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tg-tabs button{border:0;padding:12px;border-radius:16px;background:var(--bg-base);color:var(--text-body);font:inherit;font-weight:700;font-size:13px;box-shadow:5px 5px 11px var(--shadow-dark),-5px -5px 11px var(--shadow-light)}
+.tg-tabs button.on{color:var(--accent-coral);box-shadow:inset 4px 4px 9px var(--shadow-dark),inset -4px -4px 9px var(--shadow-light)}
+.tg-panel{display:flex;flex-direction:column;gap:10px}
+.tg-step{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.4}.tg-step b{width:24px;height:24px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--accent-coral);color:#fff;font-size:12px}
+.tg-ta{width:100%;min-height:74px;border:0;border-radius:16px;padding:12px;resize:none;font:11px/1.35 var(--font-mono,monospace);color:var(--text-heading);background:var(--bg-base);box-shadow:inset 4px 4px 9px var(--shadow-dark),inset -4px -4px 9px var(--shadow-light);outline:none;word-break:break-all}
+.tg-row{display:flex;gap:10px;align-items:center}
+.tg-btn{border:0;padding:14px;border-radius:18px;font:inherit;font-weight:800;font-size:14px;color:#fff;background:var(--accent-coral);box-shadow:0 12px 20px -10px var(--accent-coral)}.tg-btn.sm{flex:1;padding:11px}.tg-btn.stop{background:#e5484d}.tg-btn:disabled{opacity:.5}
+.tg-chip{border:0;padding:10px 16px;border-radius:14px;background:var(--bg-base);color:var(--accent-coral);font:inherit;font-weight:800;font-size:12px;box-shadow:4px 4px 9px var(--shadow-dark),-4px -4px 9px var(--shadow-light)}
+.tg-status{font-size:12.5px;font-weight:700;padding:10px 14px;border-radius:14px;background:var(--bg-base);box-shadow:inset 3px 3px 7px var(--shadow-dark),inset -3px -3px 7px var(--shadow-light)}
+.tg-status.ok{color:#16a34a}.tg-status.bad{color:#e5484d}
+.tg-live{display:flex;flex-direction:column;gap:14px}
+.tg-now{display:flex;gap:14px;padding:14px;border-radius:22px;background:var(--bg-base);box-shadow:8px 8px 18px var(--shadow-dark),-8px -8px 18px var(--shadow-light)}.tg-now img{width:84px;height:84px;border-radius:18px;object-fit:cover;flex:none}
+.tg-txt{min-width:0;flex:1;display:flex;flex-direction:column;justify-content:center;gap:3px}.tg-txt b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tg-txt small{opacity:.7}
+.tg-bar{height:5px;border-radius:5px;margin-top:8px;background:var(--bg-base);box-shadow:inset 1px 1px 3px var(--shadow-dark);overflow:hidden}.tg-bar i{display:block;height:100%;width:0;background:var(--accent-coral)}
+.tg-times{display:flex;justify-content:space-between;font-size:10.5px;opacity:.7}
+.tg-ctl{display:flex;justify-content:center;gap:18px}.tg-ctl button{width:54px;height:54px;border-radius:50%;border:0;display:grid;place-items:center;background:var(--bg-base);color:var(--text-heading);box-shadow:6px 6px 14px var(--shadow-dark),-6px -6px 14px var(--shadow-light)}.tg-ctl .big{width:66px;height:66px;background:var(--accent-coral);color:#fff}
+</style>
 
 </head>
 <body>
@@ -2881,7 +3086,7 @@
                     </div>
 
                     <div class="header-dropdown-menu" id="homeDropdownMenu">
-                        <button class="dropdown-item-btn" onclick="document.getElementById('audioFileInput').click(); closeAllDropdowns();">
+                        <button class="dropdown-item-btn" onclick="auraOpenImport(); closeAllDropdowns();">
                             <i data-lucide="folder-plus" style="width: 16px; height: 16px; color: var(--accent-coral);"></i>
                             <span>Scan Local Files</span>
                         </button>
@@ -2964,9 +3169,9 @@
                         <span class="quick-icon-wrap"><i data-lucide="user" style="width: 18px; height: 18px;"></i></span>
                         <span>Artists</span>
                     </button>
-                    <button class="quick-access-btn" onclick="navigateTo('viewFolders')">
-                        <span class="quick-icon-wrap"><i data-lucide="folder" style="width: 18px; height: 18px;"></i></span>
-                        <span>Folders</span>
+                    <button class="quick-access-btn" onclick="navigateTo('viewTogether')">
+                        <span class="quick-icon-wrap"><i data-lucide="users" style="width: 18px; height: 18px;"></i></span>
+                        <span>Together</span>
                     </button>
                 </div>
 
@@ -3152,7 +3357,7 @@
                     </button>
                     <h2 class="header-title">Songs</h2>
                     <div class="header-right-actions">
-                        <button class="neu-btn btn-circle-36" onclick="document.getElementById('audioFileInput').click()" title="Import Songs">
+                        <button class="neu-btn btn-circle-36" onclick="auraOpenImport()" title="Import Songs">
                             <i data-lucide="plus" style="width: 17px; height: 17px;"></i>
                         </button>
                     </div>
@@ -3387,7 +3592,7 @@
                     <i data-lucide="chevron-right" style="width: 16px; height: 16px; color: var(--text-dim);"></i>
                 </div>
 
-                <div class="settings-tile-item" onclick="document.getElementById('audioFileInput').click()">
+                <div class="settings-tile-item" onclick="auraOpenImport()">
                     <div class="settings-tile-left">
                         <span class="settings-icon-box"><i data-lucide="folder-plus" style="width: 20px; height: 20px;"></i></span>
                         <div>
@@ -3414,10 +3619,23 @@
                         <span class="settings-icon-box"><i data-lucide="lock" style="width: 20px; height: 20px;"></i></span>
                         <div>
                             <div class="settings-tile-title">Lock Screen Player</div>
-                            <div class="settings-tile-sub">Neumorphic lock player • follows your theme</div>
+                            <div class="settings-tile-sub">Tap to preview • each theme has its own design</div>
                         </div>
                     </div>
                     <i data-lucide="chevron-right" style="width: 16px; height: 16px; color: var(--text-dim);"></i>
+                </div>
+
+                <div class="settings-tile-item">
+                    <div class="settings-tile-left">
+                        <span class="settings-icon-box"><i data-lucide="layout-template" style="width: 20px; height: 20px;"></i></span>
+                        <div>
+                            <div class="settings-tile-title">Lock Screen Design</div>
+                            <div class="settings-tile-sub">Auto = changes with your theme</div>
+                        </div>
+                    </div>
+                    <select id="alDesignSel" class="aura-select-mini" onchange="auraSetLockDesign(this.value)" style="max-width:150px;border:0;border-radius:12px;padding:8px;background:var(--bg-base);color:var(--text-heading);box-shadow:var(--neu-pressed);font:inherit;font-size:12px;">
+                        <option value="auto">Auto (theme)</option><option value="1">1 · Terracotta Tube</option><option value="2">2 · Soft Squircle</option><option value="3">3 · Night Neumorphic</option><option value="4">4 · Purple Wave</option><option value="5">5 · Arch Gradient</option><option value="6">6 · Side Rail Disc</option><option value="7">7 · Oval Poster</option><option value="8">8 · Vinyl Turntable</option><option value="9">9 · Aurora Glass</option><option value="10">10 · Radial Dial</option>
+                    </select>
                 </div>
 
                 <div class="settings-tile-item" onclick="navigateTo('viewBackup')">
@@ -3685,6 +3903,77 @@
             </section>
 
             <!-- 11. LOCAL MEDIA (FOLDERS) SCREEN -->
+            <section class="screen-view" id="viewTogether">
+                <header class="screen-header">
+                    <button class="neu-btn btn-circle-36" onclick="goBackView('viewHome')"><i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i></button>
+                    <h2 class="header-title">Listen Together</h2>
+                    <div style="width: 36px;"></div>
+                </header>
+                <div class="tg-wrap">
+                    <div class="tg-note">Your friend only needs AuraPulse installed – no songs needed. Your songs play on both phones at the same time. Works on the same Wi-Fi or over the internet.</div>
+                    <div class="tg-tabs"><button id="tgTabHost" class="on" onclick="tgTab('host')">I have the songs</button><button id="tgTabJoin" onclick="tgTab('join')">I'm joining</button></div>
+
+                    <div id="tgHost" class="tg-panel">
+                        <div class="tg-step"><b>1</b><span>Tap <u>Create invite</u> and send the code to your friend (WhatsApp etc.).</span></div>
+                        <button class="tg-btn" id="tgMakeInvite" onclick="tgHostCreate()">Create invite</button>
+                        <textarea id="tgInvite" class="tg-ta" readonly placeholder="Invite code appears here" style="display:none"></textarea>
+                        <div class="tg-row" id="tgInviteBtns" style="display:none"><button class="tg-chip" onclick="tgCopy('tgInvite')">Copy</button><button class="tg-chip" onclick="tgShare('tgInvite')">Share</button></div>
+                        <div class="tg-step"><b>2</b><span>Your friend sends back a <u>reply code</u>. Paste it here.</span></div>
+                        <textarea id="tgReplyIn" class="tg-ta" placeholder="Paste friend's reply code"></textarea>
+                        <div class="tg-row"><button class="tg-chip" onclick="tgPaste('tgReplyIn')">Paste</button><button class="tg-btn sm" onclick="tgHostConnect()">Connect</button></div>
+                    </div>
+
+                    <div id="tgJoin" class="tg-panel" style="display:none">
+                        <div class="tg-step"><b>1</b><span>Paste the invite code your friend sent.</span></div>
+                        <textarea id="tgInviteIn" class="tg-ta" placeholder="Paste invite code"></textarea>
+                        <div class="tg-row"><button class="tg-chip" onclick="tgPaste('tgInviteIn')">Paste</button><button class="tg-btn sm" onclick="tgGuestJoin()">Join</button></div>
+                        <div class="tg-step"><b>2</b><span>Send this <u>reply code</u> back to your friend.</span></div>
+                        <textarea id="tgReply" class="tg-ta" readonly placeholder="Reply code appears here" style="display:none"></textarea>
+                        <div class="tg-row" id="tgReplyBtns" style="display:none"><button class="tg-chip" onclick="tgCopy('tgReply')">Copy</button><button class="tg-chip" onclick="tgShare('tgReply')">Share</button></div>
+                    </div>
+
+                    <div class="tg-status" id="tgStatus">Not connected</div>
+                    <div class="tg-live" id="tgLive" style="display:none">
+                        <div class="tg-now">
+                            <img id="tgCover" alt="">
+                            <div class="tg-txt"><b id="tgTitle">—</b><small id="tgArtist"></small><div class="tg-bar"><i id="tgBar"></i></div><div class="tg-times"><span id="tgCur">0:00</span><span id="tgTot">0:00</span></div></div>
+                        </div>
+                        <div class="tg-ctl"><button onclick="tgCmd('prev')" aria-label="Previous"><i data-lucide="skip-back" style="width:20px;height:20px"></i></button><button class="big" onclick="tgCmd('toggle')" aria-label="Play or pause"><i data-lucide="play" style="width:24px;height:24px"></i></button><button onclick="tgCmd('next')" aria-label="Next"><i data-lucide="skip-forward" style="width:20px;height:20px"></i></button></div>
+                        <button class="tg-btn stop" onclick="tgStop()">Stop listening together</button>
+                    </div>
+                    <audio id="tgAudio" autoplay playsinline style="display:none"></audio>
+                </div>
+            </section>
+
+            <section class="screen-view" id="viewImport">
+                <header class="screen-header">
+                    <button class="neu-btn btn-circle-36" onclick="goBackView('viewSongs')"><i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i></button>
+                    <h2 class="header-title">Add Songs</h2>
+                    <div style="width: 36px;"></div>
+                </header>
+                <div class="imp-wrap">
+                    <div class="imp-actions">
+                        <button class="imp-big" id="impBtnScan" onclick="auraImpScan()"><i data-lucide="smartphone" style="width:20px;height:20px;"></i><span><b>Scan phone</b><small>Find all songs on this phone</small></span></button>
+                        <button class="imp-big" onclick="auraImpFolder()"><i data-lucide="folder-open" style="width:20px;height:20px;"></i><span><b>Choose folder</b><small>Add a whole folder at once</small></span></button>
+                        <button class="imp-big" onclick="auraImpPick()"><i data-lucide="file-audio" style="width:20px;height:20px;"></i><span><b>Pick files</b><small>Select many files together</small></span></button>
+                    </div>
+                    <div id="impListBox" style="display:none;">
+                        <div class="imp-bar">
+                            <input id="impSearch" class="imp-search" type="search" placeholder="Search songs..." oninput="auraImpRender()">
+                            <button class="imp-chip" onclick="auraImpAll(true)">Select all</button>
+                            <button class="imp-chip" onclick="auraImpAll(false)">Clear</button>
+                        </div>
+                        <div class="imp-count" id="impCount"></div>
+                        <div id="impList" class="imp-list"></div>
+                        <div class="imp-foot">
+                            <div class="imp-prog" id="impProg" style="display:none;"><i id="impProgFill"></i></div>
+                            <button class="imp-add" id="impAddBtn" onclick="auraImpAdd()">Add selected songs</button>
+                        </div>
+                    </div>
+                    <div class="imp-hint" id="impHint">Tip: tap <b>Scan phone</b>, then <b>Select all</b> and <b>Add selected songs</b>. Everything is added in one go.</div>
+                </div>
+            </section>
+
             <section class="screen-view" id="viewFolders">
                 <header class="screen-header">
                     <button class="neu-btn btn-circle-36" onclick="goBackView('viewSettings')">
@@ -4560,44 +4849,26 @@
 
 
         <!-- ===== WELCOME (first launch only) ===== -->
-        <div class="aura-welcome" id="auraWelcome" role="dialog" aria-label="Welcome to AuraPulse">
+        <div class="aura-welcome" id="auraWelcome" role="dialog" aria-label="Welcome to AuraPulse" onpointerdown="auraWelcomeTone(false)">
             <div class="aw-card">
-                <div class="aw-logo" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="30" height="30" fill="#fff"><path d="M9 18V6l11-2v12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="3.2"/><circle cx="17.5" cy="16" r="3.2"/></svg>
+                <div class="aw-brand">AuraPulse Studio</div>
+                <div class="aw-hero" aria-hidden="true">
+                    <div class="aw-halo"></div>
+                    <svg class="aw-ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="var(--shadow-dark)" stroke-opacity=".35" stroke-width="1.6"/><circle cx="50" cy="50" r="46" fill="none" stroke="var(--accent-coral)" stroke-width="3.4" stroke-linecap="round" pathLength="100" stroke-dasharray="28 72"/></svg>
+                    <div class="aw-pad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="currentColor"/><circle cx="18" cy="16" r="3" fill="currentColor"/></svg></div>
+                    <div class="aw-bars"><i></i><i></i><i></i><i></i><i></i></div>
                 </div>
-                <svg class="aw-art" viewBox="0 0 300 230" aria-hidden="true">
-                    <defs>
-                        <linearGradient id="awG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f43f6e"/><stop offset="1" stop-color="#fdab3d"/></linearGradient>
-                        <linearGradient id="awR" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8f8f" stop-opacity="0"/><stop offset=".5" stop-color="#ff5c6c"/><stop offset="1" stop-color="#ff8f8f" stop-opacity="0"/></linearGradient>
-                        <radialGradient id="awGlow"><stop offset="0" stop-color="#ff7a59" stop-opacity=".38"/><stop offset="1" stop-color="#ff7a59" stop-opacity="0"/></radialGradient>
-                    </defs>
-                    <circle cx="150" cy="112" r="112" fill="url(#awGlow)"/>
-                    <g class="aw-disc">
-                        <circle cx="150" cy="112" r="76" fill="url(#awG)"/>
-                        <circle cx="150" cy="112" r="64" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.5"/>
-                        <circle cx="150" cy="112" r="52" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="1.5"/>
-                        <circle cx="150" cy="112" r="40" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="1.5"/>
-                        <path d="M98 84 A58 58 0 0 1 150 54" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="4" stroke-linecap="round"/>
-                        <circle cx="150" cy="112" r="22" fill="#fff" fill-opacity=".94"/>
-                        <circle cx="150" cy="112" r="5" fill="#f43f6e"/>
-                    </g>
-                    <path d="M62 120 C62 40 238 40 238 120" fill="none" stroke="#1d2036" stroke-width="12" stroke-linecap="round"/>
-                    <rect x="48" y="104" width="30" height="56" rx="15" fill="#1d2036"/>
-                    <rect x="222" y="104" width="30" height="56" rx="15" fill="#1d2036"/>
-                    <rect x="55" y="114" width="12" height="36" rx="6" fill="url(#awG)"/>
-                    <rect x="233" y="114" width="12" height="36" rx="6" fill="url(#awG)"/>
-                    <g class="aw-note n1" fill="#f9604f"><ellipse cx="0" cy="14" rx="7" ry="5.2" transform="rotate(-20 0 14)"/><rect x="5" y="-14" width="2.6" height="28"/><path d="M7.6 -14 q10 2 9 14 q-3 -7 -9 -7z"/></g>
-                    <g class="aw-note n2" fill="#fb923c"><ellipse cx="0" cy="12" rx="6" ry="4.4" transform="rotate(-20 0 12)"/><rect x="4" y="-12" width="2.3" height="24"/></g>
-                    <g class="aw-note n3" fill="#f43f6e"><ellipse cx="0" cy="12" rx="6" ry="4.4" transform="rotate(-20 0 12)"/><rect x="4" y="-12" width="2.3" height="24"/><path d="M6.3 -12 q9 2 8 12 q-3 -6 -8 -6z"/></g>
-                    <path d="M0 206 C58 176 118 222 190 202 S272 176 300 164" fill="none" stroke="url(#awR)" stroke-width="7" stroke-linecap="round"/>
-                    <path d="M0 214 C60 186 120 228 192 210 S274 186 300 176" fill="none" stroke="url(#awR)" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
-                </svg>
                 <h1 class="aw-title"><span>Your Music</span><span class="g">Your Way</span></h1>
-                <p class="aw-tag">Play · Discover · Enjoy</p>
+                <p class="aw-tag">PLAY · DISCOVER · ENJOY</p>
+                <div class="aw-mini" aria-hidden="true">
+                    <div class="cov"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="currentColor"/><circle cx="18" cy="16" r="3" fill="currentColor"/></svg></div>
+                    <div class="tx">AuraPulse<small>Offline music, no limits</small><div class="pg"><i></i></div></div>
+                    <div class="pp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></div>
+                </div>
                 <div class="aw-feats">
-                    <div class="aw-f"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1d2a4a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><rect x="2.5" y="14" width="4.5" height="7" rx="2"/><rect x="17" y="14" width="4.5" height="7" rx="2"/></svg><span>Premium<br>Sound</span></div>
-                    <div class="aw-f"><svg viewBox="0 0 24 24" width="28" height="28" fill="#1d2a4a" stroke="#1d2a4a" stroke-width="1.2" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg><span>Smooth<br>Performance</span></div>
-                    <div class="aw-f"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1d2a4a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5.2 5.2 0 0 0-7.4 0L12 7l-1.4-1.4a5.2 5.2 0 0 0-7.4 7.4L12 21.6l8.8-8.6a5.2 5.2 0 0 0 0-7.4z"/></svg><span>Beautiful<br>Design</span></div>
+                    <div class="aw-f"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><rect x="2.5" y="14" width="4.5" height="7" rx="2"/><rect x="17" y="14" width="4.5" height="7" rx="2"/></svg></b><span>Rich Offline<br>Sound</span></div>
+                    <div class="aw-f"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M9 18h6"/></svg></b><span>Lock Screen<br>Player</span></div>
+                    <div class="aw-f"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14a6.5 6.5 0 0 1 3.5 6"/></svg></b><span>Listen<br>Together</span></div>
                 </div>
                 <button type="button" class="aw-go" onclick="auraWelcomeDone()">Get Started</button>
             </div>
@@ -4605,39 +4876,8 @@
         <script>try { if (localStorage.getItem('aura_welcome_done') === '1') document.getElementById('auraWelcome').classList.add('hide'); } catch (e) {}</script>
 
         <!-- ===== LOCK SCREEN PLAYER (follows the active theme) ===== -->
-        <div class="aura-lock" id="auraLock" aria-hidden="true">
-            <div class="al-glow"></div>
-            <div class="al-top">
-                <div class="al-time" id="alTime">--:--</div>
-                <div class="al-date" id="alDate"></div>
-            </div>
-            <div class="al-info">
-                <h2 class="al-title" id="alTitle">No Song Playing</h2>
-                <div class="al-artist" id="alArtist">Select a track to start</div>
-                <div class="al-album" id="alAlbum"></div>
-            </div>
-            <div class="al-stage">
-                <div class="al-rail">
-                    <button type="button" class="al-rbtn" id="alRepeat" onclick="toggleRepeat(); auraLockTick(true)" aria-label="Repeat"></button>
-                    <button type="button" class="al-rbtn" onclick="playNextSong(); auraLockTick(true)" aria-label="Next"></button>
-                    <button type="button" class="al-rbtn al-rplay" id="alPlay" onclick="togglePlayState(); setTimeout(() => auraLockTick(true), 60)" aria-label="Play or pause"></button>
-                    <button type="button" class="al-rbtn" onclick="playPreviousSong(); auraLockTick(true)" aria-label="Previous"></button>
-                    <button type="button" class="al-rbtn" id="alFav" onclick="toggleFavoriteCurrentSong(); setTimeout(() => auraLockTick(true), 60)" aria-label="Favorite"></button>
-                </div>
-                <div class="al-disc-wrap" id="alDiscWrap">
-                    <div class="al-disc-outer"></div>
-                    <svg class="al-ring" viewBox="0 0 100 100" aria-hidden="true">
-                        <circle cx="50" cy="50" r="47" fill="none" stroke="var(--shadow-dark)" stroke-opacity=".45" stroke-width="1.2"/>
-                        <circle id="alArc" cx="50" cy="50" r="47" fill="none" stroke="var(--accent-coral)" stroke-width="2.4" stroke-linecap="round" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 50 50)"/>
-                    </svg>
-                    <div class="al-disc"><img id="alCover" alt="Album art"></div>
-                </div>
-            </div>
-            <div class="al-seek">
-                <span id="alCur">0:00</span>
-                <div class="al-bar"><div class="al-bar-fill" id="alBarFill"></div></div>
-                <span id="alTot">0:00</span>
-            </div>
+        <div class="aura-lock" id="auraLock" aria-hidden="true" data-d="6">
+            <div id="alBody" style="flex:1;min-height:0;display:flex;flex-direction:column;position:relative;"></div>
             <button type="button" class="al-unlock" onclick="auraLockClose()">
                 <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>
                 <span>Swipe up to unlock</span>
@@ -6377,7 +6617,7 @@
                 viewHome: 'navItemHome', viewSearch: 'navItemHome',
                 viewSongs: 'navItemSongs',
                 viewLibrary: 'navItemLibrary', viewPlaylists: 'navItemLibrary', viewAlbums: 'navItemLibrary', viewArtists: 'navItemLibrary',
-                viewSettings: 'navItemSettings', viewThemes: 'navItemSettings', viewDsp: 'navItemSettings', viewAbout: 'navItemSettings', viewFolders: 'navItemSettings'
+                viewImport: 'navItemSongs', viewTogether: 'navItemHome', viewSettings: 'navItemSettings', viewThemes: 'navItemSettings', viewDsp: 'navItemSettings', viewAbout: 'navItemSettings', viewFolders: 'navItemSettings'
             };
             document.querySelectorAll('.nav-neu-pill-btn').forEach(tab => tab.classList.remove('active'));
             if (tabFor[targetViewId]) document.getElementById(tabFor[targetViewId])?.classList.add('active');
@@ -6790,7 +7030,7 @@
             if (append) container.querySelector('.aura-more-btn')?.remove(); else container.innerHTML = '';
             if (state.displayedPlaylist.length === 0) {
                 container.innerHTML = `
-                    <div class="empty-scan-box" onclick="document.getElementById('audioFileInput').click()">
+                    <div class="empty-scan-box" onclick="auraOpenImport()">
                         <div class="empty-scan-icon"><i data-lucide="folder-plus" style="width: 24px; height: 24px;"></i></div>
                         <div style="font-size: 13.5px; font-weight: 700; color: var(--text-heading);">No Songs in Library</div>
                         <div style="font-size: 11px; color: var(--text-dim);">Tap here to scan & import audio files from device</div>
@@ -7049,7 +7289,8 @@
             renderLyricsLines(); updateTrackProgress(resumeAt, song.durationSec); updatePlaybackStateIcons();
             if (saved.currentView && document.getElementById(saved.currentView)) navigateTo(saved.currentView);
             getOrPreloadTrackUrl(song).then(src => {
-                if (!src || !pendingSessionRestore || String(pendingSessionRestore.songId) !== String(song.id)) return;
+                if (!src) { state.isPlaying = false; updatePlaybackStateIcons(); return; }
+                if (!pendingSessionRestore || String(pendingSessionRestore.songId) !== String(song.id)) return;
                 audioElement.src = src; audioElement.load();
                 const restorePosition = () => {
                     const pending = pendingSessionRestore; if (!pending || String(pending.songId) !== String(song.id)) return;
@@ -7061,7 +7302,7 @@
                     updateMediaSession(song); fetchLiveLyricsForCurrentTrack(); savePlayerSession(true);
                 };
                 if (audioElement.readyState >= 1) restorePosition(); else audioElement.addEventListener("loadedmetadata", restorePosition, { once: true });
-            }).catch(() => {});
+            }).catch(() => { state.isPlaying = false; updatePlaybackStateIcons(); });
         }
 
         window.addEventListener("pagehide", () => savePlayerSession(true));
@@ -7128,19 +7369,35 @@
                     updatePlaybackStateIcons();
                 }
             }
+            else { state.isPlaying = false; updatePlaybackStateIcons(); showToast('Song file not found – add it again'); }
             preloadAdjacentTracks(idx);
             fetchLiveLyricsForCurrentTrack();
         }
 
         function playAudio() {
             if (state.playlist.length === 0) {
-                document.getElementById('audioFileInput').click();
+                if (typeof auraOpenImport === 'function') auraOpenImport(); else document.getElementById('audioFileInput').click();
+                return;
+            }
+            const idx = Math.min(Math.max(state.currentIndex || 0, 0), state.playlist.length - 1);
+            /* Nothing loaded yet (fresh start / restore still running / file failed): load the current song first. */
+            if (!audioElement.src || audioElement.error) {
+                const resumeAt = Number(state.simulatedSec) || 0;
+                state.isPlaying = true; updatePlaybackStateIcons();
+                playSongByIndex(idx).then(() => {
+                    if (resumeAt > 2) audioElement.addEventListener('loadedmetadata', () => { try { audioElement.currentTime = resumeAt; } catch (_) {} }, { once: true });
+                });
                 return;
             }
             state.isPlaying = true;
             updatePlaybackStateIcons();
             initWebAudioVisualizer();
-            if (audioElement.src) audioElement.play().catch(() => {});
+            const pr = audioElement.play();
+            if (pr && pr.catch) pr.catch(err => {
+                if (err && err.name === 'AbortError') return;
+                /* Browser refused (stale element): reload the current song and play it. */
+                playSongByIndex(idx);
+            });
         }
 
         function pauseAudio() {
@@ -7434,10 +7691,18 @@
         document.getElementById('wallpaperFileInput')?.addEventListener('change', e => { const file = e.target.files && e.target.files[0]; if (file) processWallpaperFile(file); });
 
         /* FILE IMPORT & EMBEDDED METADATA PARSING */
+        let auraIdCursor = 0;
+        function auraNewId() { auraIdCursor = Math.max(Date.now(), auraIdCursor + 1); return auraIdCursor; }
         document.getElementById('audioFileInput').addEventListener('change', async (e) => {
             const files = Array.from(e.target.files);
-            if (!files.length) return;
-            showToast(`Adding ${files.length} songs...`);
+            e.target.value = '';
+            auraImportFiles(files, {});
+        });
+        async function auraImportFiles(files, opt) {
+            opt = opt || {};
+            files = (files || []).filter(f => f && (/^audio\//.test(f.type || '') || /\.(mp3|m4a|aac|wav|flac|ogg|opus|wma|amr|mka|mid)$/i.test(f.name || '') || !f.type));
+            if (!files.length) return 0;
+            if (!opt.quiet) showToast(`Adding ${files.length} songs...`);
 
             const newSongs = [];
             const timestamp = Date.now();
@@ -7446,7 +7711,8 @@
                 const f = files[i];
                 const cleanName = f.name.replace(/\.[^/.]+$/, "");
                 const trackItem = {
-                    id: timestamp + i,
+                    id: auraNewId(),
+                    _fname: f.name,
                     title: cleanName,
                     artist: "Local Track",
                     album: "Offline Audio",
@@ -7463,21 +7729,24 @@
             state.playlist = [...newSongs, ...state.playlist];
             state.displayedPlaylist = [...state.playlist];
             renderTrackList();
-            navigateTo('viewSongs');
+            if (!opt.noNav) navigateTo('viewSongs');
 
-            let queueIndex = 0;
-            function processNextFile() {
-                if (queueIndex >= newSongs.length) return;
-                const songObj = newSongs[queueIndex++];
-                readEmbeddedMetadata(songObj.audioBlob, songObj).then(() => {
-                    saveTrackMeta(songObj);
-                    saveTrackBlob(songObj.id, songObj.audioBlob);
-                    if (window.requestIdleCallback) requestIdleCallback(processNextFile);
-                    else setTimeout(processNextFile, 30);
-                });
-            }
-            processNextFile();
-        });
+            return new Promise(done => {
+                let queueIndex = 0;
+                function processNextFile() {
+                    if (queueIndex >= newSongs.length) { try { applySongsLibraryControls(); updateLibraryCounts(); } catch (_) {} return done(newSongs.length); }
+                    const songObj = newSongs[queueIndex++];
+                    readEmbeddedMetadata(songObj.audioBlob, songObj).then(() => {
+                        saveTrackMeta(songObj);
+                        return saveTrackBlob(songObj.id, songObj.audioBlob);
+                    }).catch(() => {}).then(() => {
+                        if (opt.progress) opt.progress(queueIndex, newSongs.length);
+                        setTimeout(processNextFile, 0);
+                    });
+                }
+                processNextFile();
+            });
+        }
 
         function readEmbeddedMetadata(file, songObj) {
             try {
@@ -8332,7 +8601,7 @@
         }
 
         function triggerManualScanner() {
-            document.getElementById('audioFileInput').click();
+            auraOpenImport();
         }
 
         function openScanLocationsModal() { 
@@ -8385,7 +8654,7 @@
                 }
 
                 const trackItem = {
-                    id: timestamp + i,
+                    id: auraNewId(),
                     title: title,
                     artist: artist,
                     album: "Local Audio",
@@ -8495,47 +8764,216 @@
         const refreshIcons = root => { try { if (window.lucide) lucide.createIcons(root ? { root } : undefined); } catch (_) {} };
 
         /* ---------------- WELCOME ---------------- */
+        /* Original welcome tone, synthesised live with the Web Audio API (no audio file, no samples) -> copyright free. */
+        let welcomeCtx = null, welcomePlayed = false;
+        function chimeNotes(ctx, notes, gap, vol) {
+            const t0 = ctx.currentTime + 0.05, master = ctx.createGain(); master.gain.value = vol; master.connect(ctx.destination);
+            notes.forEach((f, i) => {
+                [[1, 1], [2, .25], [3, .08]].forEach(([m, a]) => {
+                    const o = ctx.createOscillator(), g = ctx.createGain(), t = t0 + i * gap;
+                    o.type = 'sine'; o.frequency.value = f * m; g.gain.setValueAtTime(0, t);
+                    g.gain.linearRampToValueAtTime(a * .5, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + 1.6);
+                    o.connect(g); g.connect(master); o.start(t); o.stop(t + 1.7);
+                });
+            });
+        }
+        window.auraWelcomeTone = function (final) {
+            try {
+                const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+                if (!welcomeCtx) welcomeCtx = new AC();
+                const go = () => {
+                    if (final) chimeNotes(welcomeCtx, [659.25, 987.77, 1318.51], .09, .5);                 /* E5 B5 E6 sparkle */
+                    else if (!welcomePlayed) { welcomePlayed = true; chimeNotes(welcomeCtx, [261.63, 329.63, 392.0, 523.25, 659.25, 783.99], .22, .45); } /* C major rise */
+                };
+                if (welcomeCtx.state === 'suspended') welcomeCtx.resume().then(go).catch(() => {}); else go();
+            } catch (_) {}
+        };
+        setTimeout(() => { const w = $('auraWelcome'); if (w && !w.classList.contains('hide')) auraWelcomeTone(false); }, 500);
         window.auraWelcomeDone = function () {
             const w = $('auraWelcome'); if (!w) return;
+            auraWelcomeTone(true);
             try { localStorage.setItem('aura_welcome_done', '1'); } catch (_) {}
             w.classList.add('leaving');
             setTimeout(() => { w.classList.add('hide'); w.classList.remove('leaving'); }, 520);
         };
         window.auraShowWelcome = function () { $('auraWelcome')?.classList.remove('hide'); };
 
-        /* ---------------- LOCK SCREEN ---------------- */
-        let lockTimer = null, lockOn = false, lk = {};
-        function lockSet(id, prop, val) { const el = $(id); if (el && lk[id + prop] !== val) { lk[id + prop] = val; el[prop] = val; } }
+        /* ---------------- LOCK SCREEN (10 designs, one per theme) ---------------- */
+        const IC = Object.assign({}, ICON, {
+            shuf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg>',
+            b10: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><text x="12" y="15.5" font-size="8" font-weight="800" text-anchor="middle" fill="currentColor" stroke="none">10</text></svg>',
+            f10: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/><text x="12" y="15.5" font-size="8" font-weight="800" text-anchor="middle" fill="currentColor" stroke="none">10</text></svg>',
+            note: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+            phones: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><rect x="2.5" y="14" width="4.5" height="7" rx="2"/><rect x="17" y="14" width="4.5" height="7" rx="2"/></svg>',
+            cast: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></svg>',
+            sliders: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h9M17 8h3M4 16h3M11 16h9"/><circle cx="15" cy="8" r="2"/><circle cx="9" cy="16" r="2"/></svg>',
+            down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
+            menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>'
+        });
+        const B = (n, cls) => `<button type="button" class="alb ${cls || ''}" data-al-btn="${n}" aria-label="${n}">${n === 'rep' ? IC.repeat : n === 'fav' ? IC.heart : n === 'close' ? IC.down : n === 'menu' ? IC.menu : (IC[n] || '')}</button>`;
+        const ARC = (d, r) => `<path data-al-track d="${d}" fill="none" class="trk"/><path data-al-arc d="${d}" fill="none" class="prg" pathLength="100" stroke-dasharray="0 100"/><circle data-al-dot r="${r || 7}" class="dot"/><path data-al-seek="path" d="${d}" fill="none" stroke="transparent" stroke-width="34" style="pointer-events:stroke;cursor:pointer"/>`;
+        const LIN = '<div class="lin" data-al-seek="lin"><i><b></b></i><u></u></div>';
+        const CLK = cls => `<div class="alx-clock ${cls || ''}"><b data-al="time"></b><span data-al="date"></span></div>`;
+        const TEXT = (a, b, c) => ``;
+        const T = {
+            1: () => `<div class="alx d1">${CLK()}
+              <div class="d1-stage"><div class="d1-tube"></div>
+                <div class="d1-disc spin"><img class="cov" data-al="cover" alt=""><em></em></div>
+                <svg class="d1-ring" viewBox="0 0 200 60">${ARC('M8 2 A92 56 0 0 0 192 2', 6)}</svg></div>
+              <div class="d1-info"><div class="d1-cur" data-al="cur"></div><div class="ttl" data-al="title"></div><div class="sub" data-al="artist"></div></div>
+              <div class="row d1-ctl">${B('shuf')}${B('prev')}${B('play', 'big')}${B('next')}${B('rep')}</div>
+              <div class="d1-card"><small>ALBUM</small><span data-al="album"></span></div></div>`,
+            2: () => `<div class="alx d2">
+              <div class="d2-head">${B('close')}<span><span style="display:block;font-size:17px">Now Playing</span><small style="font-size:11px;font-weight:600" data-al="time"></small></span>${B('fav')}</div>
+              <div class="d2-mid"><div class="d2-cover"><img class="cov" data-al="cover" alt=""></div>
+                <div class="d2-side">${IC.note}${IC.phones}${IC.cast}${IC.sliders}</div></div>
+              <div class="d2-info"><div class="sub" data-al="artist"></div><div class="ttl" data-al="title"></div></div>
+              <svg class="d2-arc" viewBox="0 0 300 70">${ARC('M14 62 Q150 -14 286 62', 9)}</svg>
+              <div class="times"><span data-al="cur"></span><span data-al="album" style="opacity:.7;max-width:50%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis"></span><span data-al="tot"></span></div>
+              <div class="row d2-ctl">${B('prev')}${B('play', 'big')}${B('next')}</div></div>`,
+            3: () => `<div class="alx d3">
+              <div class="d3-card"><div class="d3-top">${B('close')}<span>PLAYING NOW</span>${B('fav')}</div>
+                <div class="d3-cov spin"><img class="cov" data-al="cover" alt=""></div>
+                <div class="d3-info"><div class="ttl" data-al="title"></div><div class="sub" data-al="artist"></div></div>
+                <div class="d3-seek"><div class="times"><span data-al="cur"></span><span data-al="tot"></span></div>${LIN}</div>
+                <div class="row d3-ctl">${B('prev')}${B('play', 'big')}${B('next')}</div></div>
+              <div style="font-size:12px;opacity:.6;text-align:center" data-al="time"></div></div>`,
+            4: () => `<div class="alx d4">
+              <div class="d4-top"><span>AuraPulse</span><span data-al="time" style="font-weight:600"></span></div>
+              <div class="d4-blob"><svg viewBox="0 0 360 200" preserveAspectRatio="none"><path d="M0 20 C90 -10 190 10 260 40 C330 70 350 130 360 150 L360 160 C300 190 200 150 120 150 C60 150 20 190 0 200Z" fill="#4a1f7a"/></svg></div>
+              <div class="d4-song"><div class="d4-cov spin"><img class="cov" data-al="cover" alt=""></div><div><div class="ttl" data-al="title"></div><div class="sub" data-al="artist"></div><div class="row">${B('shuf')}${B('rep')}${B('fav')}</div></div></div>
+              <svg class="d4-arc" viewBox="0 0 260 340" preserveAspectRatio="xMinYMax meet">${ARC('M18 332 C8 190 90 40 250 30', 9)}</svg>
+              <div class="d4-time" data-al="tot"></div>
+              <div class="row d4-ctl">${B('prev')}${B('play', 'big')}${B('next')}</div></div>`,
+            5: () => `<div class="alx d5">
+              <div class="d5-card"><div class="d5-clock alx-clock"><b data-al="time" style="font-size:26px"></b></div>
+                <div class="d5-stage"><div class="d5-arch"><img class="cov" data-al="cover" alt=""></div>
+                  <svg class="d5-ring" viewBox="0 0 300 306">${ARC('M44 170 A106 106 0 0 0 256 170', 8)}</svg></div>
+                <div class="d5-info"><div class="sub" data-al="artist"></div><div class="ttl" data-al="title"></div><div class="times" style="margin-top:8px"><span data-al="cur"></span><span data-al="tot"></span></div></div>
+                <div class="row d5-ctl">${B('rep', 'sq')}${B('prev', 'sq')}${B('play', 'big')}${B('next', 'sq')}${B('fav', 'sq')}</div></div></div>`,
+            6: () => `<div class="alx d6">
+              <div class="d6-clock"><b data-al="time"></b><span data-al="date"></span></div>
+              <div class="d6-title ttl" data-al="title" style="margin-top:46px"></div><div class="d6-sub" data-al="artist"></div><div class="d6-sub2" data-al="album"></div>
+              <div class="d6-rail">${B('rep')}${B('next')}${B('play', 'big')}${B('prev')}${B('fav')}</div>
+              <div class="d6-disc"><div class="well"></div><div class="cd spin"><img class="cov" data-al="cover" alt=""></div>
+                <svg viewBox="0 0 100 100">${ARC('M50 4 A46 46 0 1 1 49.99 4', 3.4)}</svg></div>
+              <div class="d6-times"><span data-al="cur"></span> / <span data-al="tot"></span></div>
+              </div>`,
+            7: () => `<div class="alx d7">
+              <div class="d7-name" data-al="artist"></div><div class="d7-chip" data-al="title"></div>
+              <div class="d7-stage"><div class="d7-oval"><img class="cov" data-al="cover" alt=""><button type="button" class="alb play" data-al-btn="play" aria-label="play"></button><div class="tm" data-al="cur"></div></div>
+                <svg class="d7-ring" viewBox="0 0 300 110" preserveAspectRatio="none">${ARC('M6 4 A144 100 0 0 0 294 4', 7)}</svg></div>
+              <div class="row d7-ctl">${B('prev')}${B('b10', 'dk')}${B('f10', 'dk')}${B('next')}</div>
+              <div class="d7-clock"><b data-al="time"></b></div></div>`,
+            8: () => `<div class="alx d8">${CLK()}
+              <div class="d8-deck"><div class="d8-rec spin"><div class="sheen"></div><div class="lbl"><img class="cov" data-al="cover" alt=""></div><div class="hole"></div></div>
+                <div class="d8-arm"><svg viewBox="0 0 100 200"><circle cx="70" cy="24" r="14" fill="#9fd1d4" stroke="#08484d" stroke-width="3"/><path d="M70 24 L70 120 L38 176" fill="none" stroke="#08484d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="26" y="168" width="22" height="30" rx="4" fill="#08484d" transform="rotate(28 37 183)"/></svg></div></div>
+              <div class="d8-info"><div class="ttl" data-al="title"></div><div class="sub" data-al="artist"></div></div>
+              <div class="d8-seek"><div class="times"><span data-al="cur"></span><span data-al="tot"></span></div>${LIN}</div>
+              <div class="row d8-ctl">${B('prev')}${B('play', 'big')}${B('next')}</div></div>`,
+            9: () => `<div class="alx d9"><div class="d9-bg" data-al="coverbg"></div><div class="d9-shade"></div>${CLK()}
+              <div class="d9-glass"><div class="d9-cov"><img class="cov" data-al="cover" alt=""></div>
+                <div class="d9-info"><div><div class="ttl" data-al="title"></div><div class="sub" data-al="artist"></div></div><span class="eq"><i></i><i></i><i></i><i></i></span></div>
+                <div class="d9-seek"><div class="times"><span data-al="cur"></span><span data-al="tot"></span></div>${LIN}</div>
+                <div class="row d9-ctl">${B('shuf')}${B('prev')}${B('play', 'big')}${B('next')}${B('fav')}</div></div></div>`,
+            10: () => {
+                let ticks = ''; for (let i = 0; i < 60; i++) { const a = (i / 60) * 2 * Math.PI - Math.PI / 2, c = Math.cos(a), s = Math.sin(a); ticks += `<line x1="${(50 + 44 * c).toFixed(2)}" y1="${(50 + 44 * s).toFixed(2)}" x2="${(50 + 48 * c).toFixed(2)}" y2="${(50 + 48 * s).toFixed(2)}"/>`; }
+                return `<div class="alx d10">${CLK()}
+              <div class="d10-dial"><svg viewBox="0 0 100 100"><g class="d10-tk" data-al-ticks>${ticks}</g><path data-al-track d="M50 2 A48 48 0 1 1 49.99 2" fill="none" stroke="none"/><circle data-al-dot r="3.2" class="dot"/><path data-al-seek="path" d="M50 2 A48 48 0 1 1 49.99 2" fill="none" stroke="transparent" stroke-width="12" style="pointer-events:stroke;cursor:pointer"/></svg>
+                <div class="d10-cov spin"><img class="cov" data-al="cover" alt=""></div><div class="d10-tm"><span data-al="cur"></span> · <span data-al="tot"></span></div></div>
+              <div class="d10-info"><div class="ttl" data-al="title"></div><div class="sub" data-al="artist"></div></div>
+              <div class="row d10-ctl">${B('shuf')}${B('prev')}${B('play', 'big')}${B('next')}${B('fav')}</div></div>`;
+            }
+        };
+        const THEME_DESIGN = { light: 2, slate: 3, mint: 6, mint3d: 8, violet3d: 4, skysmile: 5, blushrose: 7, sunnyhoney: 1, seafoam: 9, peach: 10, custom: 6 };
+        const DESIGN_NAMES = { 1: 'Terracotta Tube', 2: 'Soft Squircle', 3: 'Night Neumorphic', 4: 'Purple Wave', 5: 'Arch Gradient', 6: 'Side Rail Disc', 7: 'Oval Poster', 8: 'Vinyl Turntable', 9: 'Aurora Glass', 10: 'Radial Dial' };
+        const lockPref = () => { try { return localStorage.getItem('aura_lock_design') || 'auto'; } catch (_) { return 'auto'; } };
+        const lockDesign = () => { const p = lockPref(); if (p !== 'auto' && T[p]) return Number(p); return THEME_DESIGN[state.currentTheme] || 6; };
+        window.auraLockDesigns = DESIGN_NAMES;
+        setTimeout(() => { const s = $('alDesignSel'); if (s) s.value = lockPref(); }, 300);
+        window.auraSetLockDesign = function (v) { try { localStorage.setItem('aura_lock_design', String(v)); } catch (_) {} if (lockOn) auraLockTick(true); const s = $('alDesignSel'); if (s) s.value = String(v); showToast(v === 'auto' ? 'Lock screen: follows theme' : 'Lock screen design ' + v + ': ' + DESIGN_NAMES[v]); };
+        let lockTimer = null, lockOn = false, lk = {}, built = 0, drag = null;
+        const body = () => $('alBody');
+        function buildLock(d) {
+            const el = $('auraLock'), b = body(); if (!el || !b) return;
+            built = d; el.setAttribute('data-d', d); b.innerHTML = T[d]();
+            lk = {};
+        }
+        const setAll = (name, v) => { if (lk['t' + name] === v) return; lk['t' + name] = v; body().querySelectorAll('[data-al="' + name + '"]').forEach(n => { n.textContent = v; }); };
         window.auraLockTick = function (force) {
             if (!lockOn) return;
-            if (force) lk = {};
+            const d = lockDesign(); if (d !== built || force === 'rebuild') buildLock(d);
+            if (force === true) lk = {};
+            const root = body(); if (!root) return;
             const s = curSong();
             const loc = (typeof currentAppLanguage !== 'undefined' && currentAppLanguage === 'ta') ? 'ta-IN' : 'en-IN';
             const now = new Date();
-            lockSet('alTime', 'textContent', now.toLocaleTimeString(loc, { hour: '2-digit', minute: '2-digit', hour12: false }));
-            lockSet('alDate', 'textContent', now.toLocaleDateString(loc, { weekday: 'long', day: 'numeric', month: 'long' }));
-            lockSet('alTitle', 'textContent', s ? s.title : 'No Song Playing');
-            lockSet('alArtist', 'textContent', s ? s.artist : 'Select a track to start');
-            lockSet('alAlbum', 'textContent', s ? (s.album || '') : '');
+            setAll('time', now.toLocaleTimeString(loc, { hour: '2-digit', minute: '2-digit', hour12: false }));
+            setAll('date', now.toLocaleDateString(loc, { weekday: 'long', day: 'numeric', month: 'long' }));
+            setAll('title', s ? s.title : 'No Song Playing');
+            setAll('artist', s ? s.artist : 'Select a track to start');
+            setAll('album', s ? (s.album || '') : '');
             const cover = s ? (s.cover || DEFAULT_ART) : DEFAULT_ART;
-            if (lk.cover !== cover) { lk.cover = cover; const img = $('alCover'); if (img) img.src = cover; }
-            const d = audioElement.duration, t = audioElement.currentTime || 0;
-            const dur = Number.isFinite(d) && d > 0 ? d : (s && s.durationSec) || 0;
-            const pct = dur > 0 ? Math.min(100, (t / dur) * 100) : 0;
-            $('alArc')?.setAttribute('stroke-dasharray', pct.toFixed(2) + ' 100');
-            const fill = $('alBarFill'); if (fill) fill.style.width = pct.toFixed(2) + '%';
-            lockSet('alCur', 'textContent', fmt(t)); lockSet('alTot', 'textContent', fmt(dur));
+            if (lk.cover !== cover) { lk.cover = cover; root.querySelectorAll('[data-al="cover"]').forEach(i => { i.src = cover; }); root.querySelectorAll('[data-al="coverbg"]').forEach(i => { i.style.backgroundImage = 'url("' + String(cover).replace(/"/g, '%22') + '")'; }); }
+            const dd = audioElement.duration, t0 = audioElement.currentTime || 0;
+            const dur = Number.isFinite(dd) && dd > 0 ? dd : (s && s.durationSec) || 0;
+            const t = drag && drag.frac != null ? drag.frac * dur : t0;
+            const p = dur > 0 ? Math.min(1, Math.max(0, t / dur)) : 0;
+            root.style.setProperty('--p', p.toFixed(4));
+            root.querySelectorAll('[data-al-arc]').forEach(a => a.setAttribute('stroke-dasharray', (p * 100).toFixed(2) + ' 100'));
+            root.querySelectorAll('[data-al-dot]').forEach(dot => {
+                try { const tr = dot.parentNode.querySelector('[data-al-track]'); const len = tr.getTotalLength(); const pt = tr.getPointAtLength(p * len); dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.y); } catch (_) {}
+            });
+            root.querySelectorAll('[data-al-ticks]').forEach(g => { const n = Math.round(p * 60); if (lk.tk !== n) { lk.tk = n; [...g.children].forEach((ln, i) => ln.classList.toggle('on', i < n)); } });
+            const bub = root.querySelector('.d4-bub'); if (bub) bub.remove();
+            setAll('cur', fmt(t)); setAll('tot', fmt(dur));
             const playing = !!state.isPlaying;
-            if (lk.playing !== playing) { lk.playing = playing; $('auraLock').classList.toggle('playing', playing); $('alPlay').innerHTML = playing ? ICON.pause : ICON.play; }
-            if (lk.rep !== state.isRepeat) { lk.rep = state.isRepeat; $('alRepeat').classList.toggle('on', !!state.isRepeat); }
+            if (lk.playing !== playing) {
+                lk.playing = playing; $('auraLock').classList.toggle('playing', playing);
+                root.querySelectorAll('[data-al-btn="play"]').forEach(b => { b.innerHTML = playing ? ICON.pause : ICON.play; });
+                const arm = root.querySelector('.d8-arm'); if (arm) arm.style.setProperty('--ang', playing ? '14deg' : '-12deg');
+            }
+            const arm = root.querySelector('.d8-arm'); if (arm && playing) arm.style.setProperty('--ang', (14 + p * 12).toFixed(1) + 'deg');
+            root.querySelectorAll('[data-al-btn="rep"]').forEach(b => b.classList.toggle('on', !!state.isRepeat));
+            root.querySelectorAll('[data-al-btn="shuf"]').forEach(b => b.classList.toggle('on', !!state.isShuffle));
             const fav = !!(s && (state.customPlaylists['Favorites'] || []).includes(s.id));
-            if (lk.fav !== fav) { lk.fav = fav; const b = $('alFav'); b.innerHTML = fav ? ICON.heartOn : ICON.heart; b.classList.toggle('on', fav); }
+            root.querySelectorAll('[data-al-btn="fav"]').forEach(b => { b.classList.toggle('on', fav); b.innerHTML = fav ? IC.heartOn : IC.heart; });
+            if (!lk.init) { lk.init = 1; root.querySelectorAll('[data-al-btn="play"]').forEach(b => { b.innerHTML = playing ? ICON.pause : ICON.play; }); }
         };
+        function seekFrom(e, el) {
+            const k = el.getAttribute('data-al-seek'); let f = 0;
+            if (k === 'lin') { const r = el.getBoundingClientRect(); f = (e.clientX - r.left) / r.width; }
+            else {
+                const svg = el.ownerSVGElement, tr = svg.querySelector('[data-al-track]'); const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+                const q = pt.matrixTransform(svg.getScreenCTM().inverse()); const len = tr.getTotalLength(); let best = 0, bd = 1e12;
+                for (let i = 0; i <= 120; i++) { const c = tr.getPointAtLength(len * i / 120); const dx = c.x - q.x, dy = c.y - q.y, dd = dx * dx + dy * dy; if (dd < bd) { bd = dd; best = i / 120; } }
+                f = best;
+            }
+            return Math.min(1, Math.max(0, f));
+        }
+        (function wire() {
+            const el = $('auraLock'); if (!el) return;
+            el.addEventListener('click', e => {
+                const b = e.target.closest('[data-al-btn]'); if (!b) return;
+                const n = b.getAttribute('data-al-btn');
+                if (n === 'play') togglePlayState(); else if (n === 'next') playNextSong(); else if (n === 'prev') playPreviousSong();
+                else if (n === 'rep') toggleRepeat(); else if (n === 'shuf') toggleShuffle(); else if (n === 'fav') toggleFavoriteCurrentSong();
+                else if (n === 'b10') audioElement.currentTime = Math.max(0, (audioElement.currentTime || 0) - 10);
+                else if (n === 'f10') audioElement.currentTime = Math.min(audioElement.duration || 1e9, (audioElement.currentTime || 0) + 10);
+                else if (n === 'close') { auraLockClose(); return; }
+                setTimeout(() => auraLockTick(true), 70);
+            });
+            el.addEventListener('pointerdown', e => {
+                const t = e.target.closest('[data-al-seek]'); if (!t) return;
+                e.stopPropagation(); drag = { el: t, frac: seekFrom(e, t) }; try { t.setPointerCapture(e.pointerId); } catch (_) {} auraLockTick();
+            }, true);
+            el.addEventListener('pointermove', e => { if (!drag) return; drag.frac = seekFrom(e, drag.el); auraLockTick(); });
+            const end = e => { if (!drag) return; const f = drag.frac, d = audioElement.duration; drag = null; if (f != null && Number.isFinite(d) && d > 0) audioElement.currentTime = f * d; auraLockTick(); };
+            el.addEventListener('pointerup', end, true); el.addEventListener('pointercancel', () => { drag = null; });
+        })();
         window.auraLockOpen = function () {
             const el = $('auraLock'); if (!el) return;
-            const rail = el.querySelectorAll('.al-rail .al-rbtn');
-            if (rail[0] && !rail[0].innerHTML) { rail[0].innerHTML = ICON.repeat; rail[1].innerHTML = ICON.next; rail[3].innerHTML = ICON.prev; }
-            lockOn = true; lk = {};
+            lockOn = true; lk = {}; built = 0;
             el.classList.add('show'); el.setAttribute('aria-hidden', 'false');
             auraLockTick(true);
             clearInterval(lockTimer); lockTimer = setInterval(auraLockTick, 500);
@@ -9291,7 +9729,7 @@
            9. ANDROID NATIVE HOOKS  (lock-screen controls + player on the locked screen)
            These only act inside the Android app that includes AuraNative.kt; in a browser they do nothing.
            ===================================================================== */
-        let lockAuto = lsGet('aura_lock_auto', '1') !== '0', lockAutoOpen = false, lockWatch = null;
+        let lockAuto = lsGet('aura_lock_auto', '1') !== '0', lockAutoOpen = false;
         const artCache = new Map();
         async function artB64(s) {
             const key = s.id + ':' + s.cover; if (artCache.has(key)) return artCache.get(key);
@@ -9326,21 +9764,39 @@
                 else if (a.indexOf('seek:') === 0) audioElement.currentTime = Number(a.slice(5)) / 1000;
             } catch (_) {}
         };
-        function lockCheck() {
-            if (!nativeHas('isLocked')) return;
-            let locked = false; try { locked = !!window.Android.isLocked(); } catch (_) {}
-            if (locked && lockAuto && state.isPlaying && !document.hidden && !lockAutoOpen) { lockAutoOpen = true; auraLockOpen(); startLockWatch(); }
-            else if (!locked && lockAutoOpen) { lockAutoOpen = false; stopLockWatch(); auraLockCloseRaw(); }
-        }
+        /* The phone tells us when the screen goes off / on / is unlocked, so the player opens on the lock screen
+           only after a real lock and closes the moment the phone is unlocked (no flicker). */
         const auraLockCloseRaw = window.auraLockClose;
+        let screenOffPlaying = false;
         window.auraLockClose = function () {
-            if (lockAutoOpen && nativeHas('requestUnlock') && nativeHas('isLocked') && window.Android.isLocked()) { try { window.Android.requestUnlock(); } catch (_) {} return; }
-            lockAutoOpen = false; stopLockWatch(); return auraLockCloseRaw.apply(this, arguments);
+            if (lockAutoOpen && nativeHas('requestUnlock') && nativeHas('isLocked')) {
+                let locked = false; try { locked = !!window.Android.isLocked(); } catch (_) {}
+                if (locked) { try { window.Android.requestUnlock(); } catch (_) {} return; }
+            }
+            lockAutoOpen = false; return auraLockCloseRaw.apply(this, arguments);
         };
-        function startLockWatch() { stopLockWatch(); lockWatch = setInterval(lockCheck, 600); }
-        function stopLockWatch() { clearInterval(lockWatch); lockWatch = null; }
-        document.addEventListener('visibilitychange', () => { setTimeout(lockCheck, 200); });
-        window.addEventListener('focus', () => setTimeout(lockCheck, 200));
+        /* No flash: the lock player is opened while the screen is still OFF (nobody sees the app underneath),
+           and when the screen turns on we check at once - if the phone is not locked we close it again. */
+        window.auraNativeScreen = function (ev) {
+            try {
+                if (ev === 'off') {
+                    screenOffPlaying = !!state.isPlaying;
+                    if (screenOffPlaying && lockAuto && nativeHas('isLocked') && !lockAutoOpen) { lockAutoOpen = true; auraLockOpen(); }
+                } else if (ev === 'on') {
+                    if (lockAutoOpen) {
+                        let locked = true; try { locked = !!window.Android.isLocked(); } catch (_) {}
+                        if (!locked) { lockAutoOpen = false; auraLockCloseRaw.call(window); }
+                    } else if (state.isPlaying && lockAuto && nativeHas('isLocked')) {
+                        let locked = false; try { locked = !!window.Android.isLocked(); } catch (_) {}
+                        if (locked) { lockAutoOpen = true; auraLockOpen(); }
+                    }
+                } else if (ev === 'present') {
+                    screenOffPlaying = false;
+                    if (lockAutoOpen) { lockAutoOpen = false; auraLockCloseRaw.call(window); }
+                }
+            } catch (_) {}
+        };
+        window.auraOpenAppPermissions = function () { try { window.Android.openAppSettings(); } catch (_) { showToast('Open: Phone Settings → Apps → AuraPulse → Permissions'); } };
         window.auraSetLockAuto = on => { lockAuto = !!on; lsSet('aura_lock_auto', lockAuto ? '1' : '0'); if (nativeHas('setShowOnLock')) { try { window.Android.setShowOnLock(lockAuto); } catch (_) {} } };
         if (nativeHas('setShowOnLock')) { try { window.Android.setShowOnLock(lockAuto); } catch (_) {} }
 
@@ -9353,7 +9809,8 @@
                     if (id === 'viewTools' || id === 'viewToolPage') $('navItemSettings')?.classList.add('active');
                     if (id === 'viewTools') {
                         $('chkGestures').checked = gestures; $('chkShake').checked = shake; $('chkLockAuto').checked = lockAuto;
-                        const sub = $('lockAutoSub'); if (sub) sub.textContent = nativeHas('isLocked') ? 'Shows this player when the phone is locked while music plays.' : 'Needs the Android app update (AuraNative.kt). In the APK it shows this player on the lock screen.';
+                        const sub = $('lockAutoSub'); if (sub) sub.textContent = nativeHas('isLocked') ? 'Shows this player on the lock screen while music plays. On Xiaomi / Redmi / Poco phones also turn ON “Show on Lock screen” in the app permissions.' : 'Works in the Android app only.';
+                        if (nativeHas('openAppSettings') && sub && !$('lockPermBtn')) { const b = document.createElement('button'); b.type = 'button'; b.id = 'lockPermBtn'; b.className = 'aura-mini-btn'; b.style.marginTop = '8px'; b.textContent = 'Open app permissions'; b.onclick = () => auraOpenAppPermissions(); sub.parentNode.appendChild(b); }
                         alarmFill(); abRender(); refreshIcons($('viewTools'));
                     }
                 } catch (e) { console.warn(e); }
@@ -9463,5 +9920,205 @@
     })();
     </script>
 
+
+    <script>
+    /* ===== ADD SONGS: scan phone / folder / many files + Select all ===== */
+    (function () {
+        const A = () => window.Android;
+        const has = fn => !!(window.Android && typeof window.Android[fn] === 'function');
+        let items = [], sel = new Set(), busy = false, nativeFolder = false;
+        const $ = id => document.getElementById(id);
+        const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const fmtDur = s => { s = Math.round(s || 0); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+        const have = it => state.playlist.some(s => (s._fname && it.name && s._fname === it.name && (!s.size || !it.size || s.size === it.size)) || (s.size && it.size && s.size === it.size && String(s.title).toLowerCase() === String(it.title).toLowerCase()));
+
+        window.auraOpenImport = function () {
+            navigateTo('viewImport');
+            if (has('listDeviceAudio') && !items.length) setTimeout(auraImpScan, 150);
+        };
+        window.auraImpPick = function () { if (has('hasAudioPermission')) { /* native chooser via WebView */ } $('audioFileInput').click(); };
+        window.auraImpFolder = function () {
+            if (has('pickFolder')) { try { nativeFolder = true; A().pickFolder(); } catch (e) { showToast('Folder picker not available'); } return; }
+            const fi = $('audioFolderInput'); if (fi) fi.click(); else $('audioFileInput').click();
+        };
+        window.auraImpScan = function () {
+            if (!has('listDeviceAudio')) { showToast('Scan works in the installed app. Use "Pick files" here.'); return; }
+            try {
+                if (has('hasAudioPermission') && !A().hasAudioPermission()) { A().requestAudioPermission(); showToast('Allow "Music and audio" permission, then tap Scan phone again'); return; }
+                showToast('Scanning…');
+                const list = JSON.parse(A().listDeviceAudio() || '[]');
+                setItems(list);
+            } catch (e) { showToast('Scan failed – try "Pick files"'); }
+        };
+        window.auraNativePermission = function (ok) { if (ok) window.auraImpScan(); else showToast('Permission denied – use "Pick files"'); };
+        window.auraNativeFolderPicked = function (json) {
+            try { const list = JSON.parse(json || '[]'); if (!list.length) { showToast('No songs found in that folder'); return; } setItems(list); } catch (e) { showToast('Could not read folder'); }
+        };
+        function setItems(list) {
+            items = list.map(o => Object.assign({ key: '', title: '', artist: '', album: '', dur: 0, size: 0 }, o));
+            items.forEach(it => { it.dup = have(it); });
+            sel = new Set(items.filter(it => !it.dup).map(it => it.key));
+            $('impListBox').style.display = 'block'; $('impHint').style.display = 'none';
+            auraImpRender();
+            showToast(items.length + ' songs found');
+        }
+        window.auraImpRender = function () {
+            const q = ($('impSearch').value || '').toLowerCase();
+            const vis = items.filter(it => !q || (it.title + ' ' + it.artist + ' ' + it.album).toLowerCase().includes(q));
+            $('impList').innerHTML = vis.map(it => `<div class="imp-row ${sel.has(it.key) ? 'on' : ''}" data-k="${esc(it.key)}"><div class="imp-chk">${sel.has(it.key) ? '✓' : ''}</div><div class="imp-t"><b>${esc(it.title)}</b><small>${esc(it.artist || 'Unknown')}${it.dur ? ' · ' + fmtDur(it.dur / (it.dur > 3600 ? 1000 : 1)) : ''}${it.dup ? ' · <span class="imp-dup">already added</span>' : ''}</small></div></div>`).join('') || '<div class="imp-hint">No songs</div>';
+            $('impCount').textContent = sel.size + ' selected of ' + items.length;
+            $('impAddBtn').textContent = sel.size ? 'Add ' + sel.size + ' songs' : 'Select songs first';
+            $('impAddBtn').disabled = busy || !sel.size;
+        };
+        document.addEventListener('click', e => {
+            const r = e.target.closest && e.target.closest('#impList .imp-row'); if (!r) return;
+            const k = r.getAttribute('data-k'); if (sel.has(k)) sel.delete(k); else sel.add(k); r.classList.toggle('on'); r.firstChild.textContent = sel.has(k) ? '✓' : '';
+            $('impCount').textContent = sel.size + ' selected of ' + items.length; $('impAddBtn').textContent = sel.size ? 'Add ' + sel.size + ' songs' : 'Select songs first'; $('impAddBtn').disabled = !sel.size;
+        });
+        window.auraImpAll = function (on) { sel = on ? new Set(items.map(i => i.key)) : new Set(); auraImpRender(); };
+        window.auraImpAdd = async function () {
+            if (busy || !sel.size) return; busy = true;
+            const chosen = items.filter(i => sel.has(i.key)); const total = chosen.length; let done = 0, fail = 0;
+            const pr = $('impProg'), fill = $('impProgFill'); pr.style.display = 'block'; $('impAddBtn').disabled = true;
+            const BATCH = 8;
+            for (let i = 0; i < chosen.length; i += BATCH) {
+                const part = chosen.slice(i, i + BATCH), files = [];
+                await Promise.all(part.map(async it => {
+                    try {
+                        const r = await fetch('/__media/' + encodeURIComponent(it.key)); if (!r.ok) throw 0;
+                        const b = await r.blob();
+                        const nm = (it.name || it.title || 'song') ; const f = new File([b], /\.[a-z0-9]{2,4}$/i.test(nm) ? nm : nm + '.mp3', { type: b.type && b.type.startsWith('audio') ? b.type : 'audio/mpeg' });
+                        f._key = it.key; files.push({ f, it });
+                    } catch (_) { fail++; }
+                }));
+                const fl = files.map(x => x.f);
+                await auraImportFiles(fl, { quiet: true, noNav: true });
+                done += part.length; fill.style.width = Math.round(done / total * 100) + '%';
+                $('impAddBtn').textContent = 'Adding ' + Math.min(done, total) + ' / ' + total + '…';
+            }
+            busy = false; pr.style.display = 'none'; fill.style.width = '0';
+            items.forEach(it => { if (sel.has(it.key)) it.dup = true; }); sel = new Set(); auraImpRender();
+            showToast((total - fail) + ' songs added' + (fail ? ' (' + fail + ' failed)' : '') + ' ✓');
+            navigateTo('viewSongs');
+        };
+        /* folder input (browser) -> same pipeline */
+        const fin = document.getElementById('audioFolderInput');
+    })();
+    </script>
+
+    <script>
+    /* ===== LISTEN TOGETHER: the host's player streams its audio to a friend who has no songs (WebRTC, no server) ===== */
+    (function () {
+        const $ = id => document.getElementById(id);
+        const ICE = [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun1.l.google.com:19302' }];
+        let pc = null, dc = null, role = '', metaTimer = null, lastSongId = null;
+        const fmt = s => { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+        const status = (t, c) => { const e = $('tgStatus'); e.textContent = t; e.className = 'tg-status' + (c ? ' ' + c : ''); };
+        async function pack(desc) {
+            const raw = JSON.stringify({ t: desc.type, s: desc.sdp });
+            try { if (window.CompressionStream) { const cs = new Blob([raw]).stream().pipeThrough(new CompressionStream('deflate-raw')); const buf = new Uint8Array(await new Response(cs).arrayBuffer()); let b = ''; buf.forEach(x => b += String.fromCharCode(x)); return 'AURA1:' + btoa(b).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); } } catch (_) {}
+            return 'AURA0:' + btoa(unescape(encodeURIComponent(raw)));
+        }
+        async function unpack(code) {
+            code = String(code || '').replace(/\s+/g, ''); const i = code.indexOf('AURA'); if (i < 0) throw new Error('bad'); code = code.slice(i);
+            const tag = code.slice(0, 6), body = code.slice(6);
+            if (tag === 'AURA0:') return JSON.parse(decodeURIComponent(escape(atob(body))));
+            const b = atob(body.replace(/-/g, '+').replace(/_/g, '/')); const u = new Uint8Array(b.length); for (let k = 0; k < b.length; k++) u[k] = b.charCodeAt(k);
+            const ds = new Blob([u]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+            return JSON.parse(await new Response(ds).text());
+        }
+        function tune(sdp) { return sdp.replace(/(a=fmtp:(\d+) [^\r\n]*)/g, (m, line, pt) => (new RegExp('a=rtpmap:' + pt + ' opus', 'i').test(sdp) && !/maxaveragebitrate/.test(line)) ? line + ';stereo=1;sprop-stereo=1;maxaveragebitrate=128000;useinbandfec=1' : m); }
+        async function fixLan(sdp) {
+            let ip = ''; try { if (window.Android && Android.getLocalIp) ip = Android.getLocalIp() || ''; } catch (_) {}
+            return ip ? sdp.replace(/[0-9a-f-]{8,}\.local/gi, ip) : sdp;
+        }
+        function gathered(p) { return new Promise(res => { if (p.iceGatheringState === 'complete') return res(); const t = setTimeout(res, 5000); p.addEventListener('icegatheringstatechange', () => { if (p.iceGatheringState === 'complete') { clearTimeout(t); res(); } }); }); }
+        function newPc() {
+            tgStop(true);
+            pc = new RTCPeerConnection({ iceServers: ICE });
+            pc.onconnectionstatechange = () => {
+                const s = pc && pc.connectionState;
+                if (s === 'connected') { status(role === 'host' ? 'Connected – your friend is listening 🎧' : 'Connected – listening 🎧', 'ok'); $('tgLive').style.display = 'flex'; if (role === 'host') startHostMeta(); try { lucide.createIcons(); } catch (_) {} }
+                else if (s === 'failed') status('Could not connect. Try again (both phones need internet or the same Wi-Fi).', 'bad');
+                else if (s === 'disconnected' || s === 'closed') { status('Disconnected', 'bad'); }
+            };
+            return pc;
+        }
+        window.tgTab = function (w) { $('tgHost').style.display = w === 'host' ? 'flex' : 'none'; $('tgJoin').style.display = w === 'join' ? 'flex' : 'none'; $('tgTabHost').classList.toggle('on', w === 'host'); $('tgTabJoin').classList.toggle('on', w === 'join'); };
+        window.tgCopy = async function (id) { const t = $(id).value; if (!t) return; try { await navigator.clipboard.writeText(t); showToast('Copied ✓'); } catch (_) { $(id).select(); document.execCommand && document.execCommand('copy'); showToast('Copied ✓'); } };
+        window.tgPaste = async function (id) { try { $(id).value = await navigator.clipboard.readText(); } catch (_) { showToast('Long-press the box and choose Paste'); } };
+        window.tgShare = function (id) { const t = 'AuraPulse – listen together 🎧\n' + $(id).value; try { if (window.Android && Android.shareText) { Android.shareText(t); return; } if (navigator.share) { navigator.share({ text: t }); return; } } catch (_) {} tgCopy(id); };
+
+        /* ---------- HOST ---------- */
+        window.tgHostCreate = async function () {
+            if (!window.RTCPeerConnection) { status('This device does not support Listen Together', 'bad'); return; }
+            if (!state.playlist.length) { showToast('Add songs first'); return; }
+            role = 'host'; $('tgMakeInvite').disabled = true; status('Creating invite…');
+            try {
+                const p = newPc(); dc = p.createDataChannel('ctl'); wireDc(dc);
+                const stream = audioElement.captureStream ? audioElement.captureStream() : audioElement.mozCaptureStream();
+                stream.getAudioTracks().forEach(t => p.addTrack(t, stream));
+                if (!stream.getAudioTracks().length) { p.addTransceiver('audio', { direction: 'sendonly' }); }
+                const offer = await p.createOffer(); offer.sdp = tune(offer.sdp); await p.setLocalDescription(offer); await gathered(p);
+                const d = p.localDescription; const code = await pack({ type: d.type, sdp: await fixLan(d.sdp) });
+                $('tgInvite').value = code; $('tgInvite').style.display = 'block'; $('tgInviteBtns').style.display = 'flex';
+                status('Invite ready – send it to your friend');
+            } catch (e) { status('Error: ' + (e.message || e), 'bad'); }
+            $('tgMakeInvite').disabled = false;
+        };
+        window.tgHostConnect = async function () {
+            try { if (!pc || role !== 'host') { showToast('Create invite first'); return; } const d = await unpack($('tgReplyIn').value); await pc.setRemoteDescription({ type: d.t, sdp: d.s }); status('Connecting…'); }
+            catch (e) { status('That reply code is not valid. Copy the whole code again.', 'bad'); }
+        };
+        function songThumb(s) {
+            return new Promise(res => { try { const im = new Image(); im.onload = () => { const c = document.createElement('canvas'); c.width = c.height = 120; const x = c.getContext('2d'); const k = Math.max(120 / im.width, 120 / im.height); x.drawImage(im, (120 - im.width * k) / 2, (120 - im.height * k) / 2, im.width * k, im.height * k); res(c.toDataURL('image/jpeg', .6)); }; im.onerror = () => res(''); im.src = s.cover || DEFAULT_ART; } catch (_) { res(''); } });
+        }
+        async function sendMeta() {
+            if (!dc || dc.readyState !== 'open') return; const s = state.playlist[state.currentIndex]; if (!s) return; lastSongId = s.id;
+            dc.send(JSON.stringify({ k: 'meta', title: s.title, artist: s.artist, album: s.album || '', cover: await songThumb(s) }));
+        }
+        function startHostMeta() {
+            clearInterval(metaTimer); sendMeta();
+            metaTimer = setInterval(() => {
+                if (!dc || dc.readyState !== 'open') return; const s = state.playlist[state.currentIndex];
+                if (s && s.id !== lastSongId) sendMeta();
+                const d = audioElement.duration; dc.send(JSON.stringify({ k: 'pos', cur: audioElement.currentTime || 0, dur: Number.isFinite(d) ? d : 0, playing: !!state.isPlaying }));
+            }, 1000);
+        }
+        /* ---------- GUEST ---------- */
+        window.tgGuestJoin = async function () {
+            if (!window.RTCPeerConnection) { status('This device does not support Listen Together', 'bad'); return; }
+            role = 'guest'; status('Joining…');
+            try {
+                const d = await unpack($('tgInviteIn').value); const p = newPc();
+                p.ondatachannel = e => { dc = e.channel; wireDc(dc); };
+                p.ontrack = e => { const a = $('tgAudio'); a.srcObject = e.streams[0] || new MediaStream([e.track]); a.play().catch(() => {}); };
+                await p.setRemoteDescription({ type: d.t, sdp: d.s });
+                const ans = await p.createAnswer(); ans.sdp = tune(ans.sdp); await p.setLocalDescription(ans); await gathered(p);
+                const l = p.localDescription; $('tgReply').value = await pack({ type: l.type, sdp: await fixLan(l.sdp) });
+                $('tgReply').style.display = 'block'; $('tgReplyBtns').style.display = 'flex'; status('Reply ready – send it back to your friend');
+            } catch (e) { status('That invite code is not valid. Copy the whole code again.', 'bad'); }
+        };
+        function wireDc(ch) {
+            ch.onmessage = e => {
+                let m; try { m = JSON.parse(e.data); } catch (_) { return; }
+                if (role === 'guest') {
+                    if (m.k === 'meta') { $('tgTitle').textContent = m.title || '—'; $('tgArtist').textContent = m.artist || ''; if (m.cover) $('tgCover').src = m.cover; }
+                    else if (m.k === 'pos') { $('tgCur').textContent = fmt(m.cur); $('tgTot').textContent = fmt(m.dur); $('tgBar').style.width = (m.dur ? Math.min(100, m.cur / m.dur * 100) : 0) + '%'; const a = $('tgAudio'); if (a.paused && m.playing) a.play().catch(() => {}); }
+                } else if (m.k === 'cmd') {
+                    if (m.c === 'next') playNextSong(); else if (m.c === 'prev') playPreviousSong(); else if (m.c === 'toggle') togglePlayState();
+                }
+            };
+            ch.onopen = () => { if (role === 'host') startHostMeta(); };
+        }
+        window.tgCmd = function (c) { if (role === 'guest') { if (dc && dc.readyState === 'open') dc.send(JSON.stringify({ k: 'cmd', c })); } else if (c === 'next') playNextSong(); else if (c === 'prev') playPreviousSong(); else togglePlayState(); };
+        window.tgStop = function (silent) {
+            clearInterval(metaTimer); try { dc && dc.close(); } catch (_) {} try { pc && pc.close(); } catch (_) {} dc = null; pc = null;
+            const a = $('tgAudio'); if (a) a.srcObject = null;
+            if (!silent) { $('tgLive').style.display = 'none'; status('Not connected'); $('tgInvite').value = ''; $('tgInvite').style.display = 'none'; $('tgInviteBtns').style.display = 'none'; $('tgReply').style.display = 'none'; $('tgReplyBtns').style.display = 'none'; $('tgReplyIn').value = ''; $('tgInviteIn').value = ''; }
+        };
+        window.__tg = { get pc() { return pc; } };
+    })();
+    </script>
 </body>
 </html>
