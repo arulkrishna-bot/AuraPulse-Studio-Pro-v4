@@ -12,8 +12,11 @@ jobs:
         with: { distribution: temurin, java-version: "17" }
       - uses: gradle/actions/setup-gradle@v4
         with: { gradle-version: "8.7" }
-      - name: Unpack project from AuraPulseApp.zip
-        run: unzip -q AuraPulseApp.zip
+      - name: Unpack project from zip
+        run: |
+          rm -rf AuraPulseApp
+          unzip -q -o "$(ls *.zip | head -1)"
+          ls
       - name: Build APK
         working-directory: AuraPulseApp
         run: gradle assembleDebug --no-daemon
